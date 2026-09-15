@@ -1,0 +1,1662 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Jelinski Pedology Group Data Registry Handbook",
+    "section": "",
+    "text": "1 Lab Data Registry\nThe Lab Data Registry is a standardized, machine-readable system for documenting datasets that enter research projects in the lab. Its purpose is to make the identity, provenance, content, rights, integrity, and human contributions associated with a dataset explicit before the data are harmonized, analyzed, or transformed.\nThe registry is designed for projects that combine heterogeneous data from multiple sources. Each project can maintain its own populated registry while using the same shared structure, conventions, vocabularies, identifiers, and validation rules.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Lab Data Registry</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#what-the-registry-contains",
+    "href": "index.html#what-the-registry-contains",
+    "title": "Jelinski Pedology Group Data Registry Handbook",
+    "section": "1.1 What the registry contains",
+    "text": "1.1 What the registry contains\nThe core registry consists of five standardized CSV artifacts in registry/:\n\nregistry--packages.csv — one row per acquired dataset release or snapshot.\nregistry--parties.csv — one row per person or organization that must be referenced.\nregistry--party-roles.csv — one row per contributor-role assertion.\nregistry--dictionary.csv — the field-level specification for every standardized registry CSV.\nregistry--vocab-schema.csv — an empty header-only template that defines the physical structure required for controlled-vocabulary CSVs.\n\nControlled vocabularies live in vocab/. The lab glossary is maintained separately in its own repository.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Lab Data Registry</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#start-here",
+    "href": "index.html#start-here",
+    "title": "Jelinski Pedology Group Data Registry Handbook",
+    "section": "1.2 Start here",
+    "text": "1.2 Start here\nIf you are new to the registry:\n\nRead Overview.\nRead Design principles.\nReview the repository architecture.\nFollow Registering a dataset.\nIf you are using an LLM for the first pass, use the prompts in LLM-assisted registration.\nBefore merging changes, complete Validation and review.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Lab Data Registry</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#core-idea-in-one-sentence",
+    "href": "index.html#core-idea-in-one-sentence",
+    "title": "Jelinski Pedology Group Data Registry Handbook",
+    "section": "1.3 Core idea in one sentence",
+    "text": "1.3 Core idea in one sentence\n\nRegister the dataset you actually received, preserve its raw bytes, document what it is and where it came from, identify the people and organizations involved, record what they contributed, and make every controlled term and field definition explicit.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Lab Data Registry</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#documentation-scope",
+    "href": "index.html#documentation-scope",
+    "title": "Jelinski Pedology Group Data Registry Handbook",
+    "section": "1.4 Documentation scope",
+    "text": "1.4 Documentation scope\nThis book documents the registry standard and workflow. It does not define project-specific scientific schemas such as soil pedon/horizon tables, vegetation observations, laboratory tables, model outputs, or harmonized analysis products. Projects may document those with the same principles, but they remain project-specific.\nThe shared data-management glossary is intentionally outside this repository so it can evolve as a lab-wide resource used by multiple registry implementations.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Lab Data Registry</span>"
+    ]
+  },
+  {
+    "objectID": "01-overview.html",
+    "href": "01-overview.html",
+    "title": "2  Overview",
+    "section": "",
+    "text": "2.1 Why a dataset registry?\nResearch projects often accumulate data in ways that are understandable at the moment of acquisition but difficult to reconstruct later. Files arrive by email, download, shared drive, collaborator handoff, API export, database extract, or legacy archive. Names change. A source may be downloaded more than once. A later release may partly overlap an earlier release. The people who collected or curated the data can disappear from the visible provenance chain once a consolidated dataset is created.\nThe Lab Data Registry is intended to prevent those problems by requiring a small amount of structured documentation at the point where data enter a project.\nThe registry answers four foundational questions:\nA fifth component—the registry dictionary—makes the registry itself interpretable by defining the meaning and legal values of every standardized field.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Overview</span>"
+    ]
+  },
+  {
+    "objectID": "01-overview.html#why-a-dataset-registry",
+    "href": "01-overview.html#why-a-dataset-registry",
+    "title": "2  Overview",
+    "section": "",
+    "text": "What did we receive?\nWhich exact release or snapshot did we use?\nWhere did it come from and what are the conditions on its use?\nWho contributed to it, and in what role?",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Overview</span>"
+    ]
+  },
+  {
+    "objectID": "01-overview.html#what-is-being-registered",
+    "href": "01-overview.html#what-is-being-registered",
+    "title": "2  Overview",
+    "section": "2.2 What is being registered?",
+    "text": "2.2 What is being registered?\nThe primary object is an acquired dataset release.\nA dataset is a conceptual data resource that can persist through time. A release is a specific delivered, downloaded, exported, or frozen snapshot of that dataset.\nFor example, a statewide monitoring dataset downloaded in 2024 and downloaded again in 2026 may be the same dataset concept but two different releases. They should share a stable dataset_id and ds_iid while receiving distinct release_id and release_slug values.\nThis distinction is central to the registry.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Overview</span>"
+    ]
+  },
+  {
+    "objectID": "01-overview.html#what-the-registry-is-not",
+    "href": "01-overview.html#what-the-registry-is-not",
+    "title": "2  Overview",
+    "section": "2.3 What the registry is not",
+    "text": "2.3 What the registry is not\nThe registry is not:\n\na replacement for the raw data;\na scientific data model for every project;\na general-purpose database management system;\na prose README that happens to list datasets;\na publication bibliography;\na substitute for repository metadata such as EML or DataCite;\na guarantee that all metadata are correct merely because a row exists.\n\nThe registry is a structured local record that connects those resources and makes the acquisition and curation process auditable.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Overview</span>"
+    ]
+  },
+  {
+    "objectID": "01-overview.html#registry-vs.-scientific-schema",
+    "href": "01-overview.html#registry-vs.-scientific-schema",
+    "title": "2  Overview",
+    "section": "2.4 Registry vs. scientific schema",
+    "text": "2.4 Registry vs. scientific schema\nThe registry operates primarily at the dataset/release level.\nA project-specific scientific schema describes the structure of the actual research data: for example pedons, horizons, soil samples, vegetation observations, laboratory results, rasters, or model predictions.\nThose two concerns should not be conflated.\nA project may use the registry to record an acquired geodatabase, then separately inventory hundreds of fields and map them into a harmonized soil schema. The registry records the acquired package and its provenance; the project schema records how scientific observations are represented.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Overview</span>"
+    ]
+  },
+  {
+    "objectID": "01-overview.html#registry-vs.-glossary",
+    "href": "01-overview.html#registry-vs.-glossary",
+    "title": "2  Overview",
+    "section": "2.5 Registry vs. glossary",
+    "text": "2.5 Registry vs. glossary\nThe registry dictionary defines fields such as release_status, dataset_id, or source_citation.\nThe separate lab glossary defines broader concepts such as dataset, release, metadata, registry, schema, and controlled vocabulary. The glossary is a human knowledge resource shared across projects; the registry is a machine-readable metadata system instantiated separately within each project.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Overview</span>"
+    ]
+  },
+  {
+    "objectID": "01-overview.html#intended-users",
+    "href": "01-overview.html#intended-users",
+    "title": "2  Overview",
+    "section": "2.6 Intended users",
+    "text": "2.6 Intended users\nThe standard is designed for:\n\ngraduate and undergraduate researchers;\nprincipal investigators;\ndata curators;\ncollaborators preparing datasets for integration;\nfuture lab members who were not present when the data were acquired;\ncomputational tools and LLMs that need an explicit, inspectable schema.\n\nThe system should be usable by a person editing CSV files directly, but structured enough to support validation and automation.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Overview</span>"
+    ]
+  },
+  {
+    "objectID": "02-design-principles.html",
+    "href": "02-design-principles.html",
+    "title": "3  Design principles",
+    "section": "",
+    "text": "3.1 Machine-readable first\nRegistry CSVs and controlled vocabularies are authoritative machine-readable records. Human-readable documentation may be generated from them, but the rendered documentation is a presentation layer.\nThis means that a fact is not fully registered merely because it appears in a README or manuscript. Important provenance, identity, rights, status, and attribution information should be represented in the structured registry.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Design principles</span>"
+    ]
+  },
+  {
+    "objectID": "02-design-principles.html#dataset-identity-is-distinct-from-release-identity",
+    "href": "02-design-principles.html#dataset-identity-is-distinct-from-release-identity",
+    "title": "3  Design principles",
+    "section": "3.2 Dataset identity is distinct from release identity",
+    "text": "3.2 Dataset identity is distinct from release identity\nA dataset concept persists across multiple acquisitions or versions. A release represents one specific snapshot.\nStable dataset identity allows the registry to answer:\n\nAre these two deliveries versions of the same conceptual dataset?\n\nRelease identity allows the registry to answer:\n\nAre these the exact same bytes or the same specific source snapshot?\n\nBoth are necessary.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Design principles</span>"
+    ]
+  },
+  {
+    "objectID": "02-design-principles.html#raw-acquisitions-are-immutable",
+    "href": "02-design-principles.html#raw-acquisitions-are-immutable",
+    "title": "3  Design principles",
+    "section": "3.3 Raw acquisitions are immutable",
+    "text": "3.3 Raw acquisitions are immutable\nFiles placed under a release raw/ directory should not be edited in place.\nIf an Access database is exported to CSV, a spreadsheet is cleaned, a geodatabase is normalized, or a text encoding is repaired, that transformation should produce a derived artifact rather than silently altering the source acquisition.\nThe registry therefore separates what arrived from what we subsequently did to it.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Design principles</span>"
+    ]
+  },
+  {
+    "objectID": "02-design-principles.html#integrity-is-explicit",
+    "href": "02-design-principles.html#integrity-is-explicit",
+    "title": "3  Design principles",
+    "section": "3.4 Integrity is explicit",
+    "text": "3.4 Integrity is explicit\nEach acquired release should receive a deterministic SHA-256 manifest. The manifest provides a cryptographic fingerprint of the files included in the release.\nThe registry records:\n\nthe manifest path;\nthe SHA-256 of the manifest;\nthe file count;\ntotal bytes.\n\nThis allows future users to verify whether a copy of the raw acquisition is exactly the version that was registered.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Design principles</span>"
+    ]
+  },
+  {
+    "objectID": "02-design-principles.html#identifiers-are-stable",
+    "href": "02-design-principles.html#identifiers-are-stable",
+    "title": "3  Design principles",
+    "section": "3.5 Identifiers are stable",
+    "text": "3.5 Identifiers are stable\nOpaque UUIDs and human-readable IIDs serve different purposes.\n\n*_id fields are stable opaque identifiers used for relationships.\n*_iid fields are human-readable immutable identifiers used for navigation and interpretation.\nrelease slugs are readable identifiers for specific acquisitions.\n\nAn identifier is never recycled for a different concept.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Design principles</span>"
+    ]
+  },
+  {
+    "objectID": "02-design-principles.html#people-and-organizations-remain-visible",
+    "href": "02-design-principles.html#people-and-organizations-remain-visible",
+    "title": "3  Design principles",
+    "section": "3.6 People and organizations remain visible",
+    "text": "3.6 People and organizations remain visible\nData integration can unintentionally erase the contributions of field crews, laboratory analysts, database maintainers, curators, and source organizations.\nThe registry therefore separates:\n\nparty identity — who the person or organization is;\nparty role — what that party did in relation to a dataset or release.\n\nThis supports richer attribution than placing a single “owner” or “contact” field on a dataset.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Design principles</span>"
+    ]
+  },
+  {
+    "objectID": "02-design-principles.html#controlled-values-are-explicit",
+    "href": "02-design-principles.html#controlled-values-are-explicit",
+    "title": "3  Design principles",
+    "section": "3.7 Controlled values are explicit",
+    "text": "3.7 Controlled values are explicit\nIf a field accepts a defined set of values, those values should not depend on memory or ad hoc spelling.\nSmall, stable sets may be stored as inline enums. Larger, reusable, hierarchical, externally standardized, or definition-bearing value sets should be represented as vocabulary CSVs.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Design principles</span>"
+    ]
+  },
+  {
+    "objectID": "02-design-principles.html#uncertainty-is-documented-not-hidden",
+    "href": "02-design-principles.html#uncertainty-is-documented-not-hidden",
+    "title": "3  Design principles",
+    "section": "3.8 Uncertainty is documented, not hidden",
+    "text": "3.8 Uncertainty is documented, not hidden\nA first-pass registry may contain unknowns. That is acceptable.\nThe correct response to missing evidence is to record the uncertainty using the registry’s null semantics and notes—not to invent a plausible value.\nThis principle is especially important when LLMs are used to accelerate initial registration.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Design principles</span>"
+    ]
+  },
+  {
+    "objectID": "02-design-principles.html#automation-assists-curation-it-does-not-replace-review",
+    "href": "02-design-principles.html#automation-assists-curation-it-does-not-replace-review",
+    "title": "3  Design principles",
+    "section": "3.9 Automation assists curation; it does not replace review",
+    "text": "3.9 Automation assists curation; it does not replace review\nLLMs and scripts are encouraged for:\n\nextracting likely metadata from source documentation;\nprofiling files;\ndrafting package rows;\nsuggesting contributors and roles;\nchecking formats;\ngenerating manifests;\nvalidating controlled values.\n\nHowever, the first-pass output must be reviewed by a person who can evaluate source evidence and project context.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Design principles</span>"
+    ]
+  },
+  {
+    "objectID": "02-design-principles.html#the-system-should-fail-visibly",
+    "href": "02-design-principles.html#the-system-should-fail-visibly",
+    "title": "3  Design principles",
+    "section": "3.10 The system should fail visibly",
+    "text": "3.10 The system should fail visibly\nSilent inconsistency is more dangerous than an explicit error.\nValidation should detect malformed identifiers, invalid controlled values, orphaned foreign keys, bad paths, missing required fields, and schema drift. When a fact cannot be validated automatically, the documentation should say that human review is required.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Design principles</span>"
+    ]
+  },
+  {
+    "objectID": "03-repository-architecture.html",
+    "href": "03-repository-architecture.html",
+    "title": "4  Repository architecture",
+    "section": "",
+    "text": "4.1 Recommended project tree\nThe lab-wide template uses descriptive directories without numeric prefixes:\nThe lab glossary lives in a separate repository and is not part of this project tree.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Repository architecture</span>"
+    ]
+  },
+  {
+    "objectID": "03-repository-architecture.html#recommended-project-tree",
+    "href": "03-repository-architecture.html#recommended-project-tree",
+    "title": "4  Repository architecture",
+    "section": "",
+    "text": "project/\n├── README.md\n├── project.toml                  # optional project marker/configuration\n├── registry/\n│   ├── registry--packages.csv\n│   ├── registry--parties.csv\n│   ├── registry--party-roles.csv\n│   ├── registry--dictionary.csv\n│   └── registry--vocab-schema.csv\n├── vocab/\n│   ├── registry-table-iid.csv\n│   ├── content-domains.csv\n│   ├── release-status.csv\n│   ├── role-schema.csv\n│   ├── credit-roles.csv\n│   ├── credit-contribution-degree.csv\n│   └── ...\n├── data/\n│   └── &lt;ds_iid&gt;/\n│       └── &lt;release_slug&gt;/\n│           ├── raw/\n│           ├── extracted/\n│           ├── reference/\n│           └── &lt;release_slug&gt;.sha256\n├── scripts/\n│   ├── mint_ids.py\n│   ├── manifest.py\n│   ├── validate_registry.py\n│   └── ...\n└── docs/\n    ├── index.md\n    ├── 01-overview.md\n    └── ...",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Repository architecture</span>"
+    ]
+  },
+  {
+    "objectID": "03-repository-architecture.html#registry",
+    "href": "03-repository-architecture.html#registry",
+    "title": "4  Repository architecture",
+    "section": "4.2 registry/",
+    "text": "4.2 registry/\nThe registry/ directory contains the standardized tables that define and populate the project registry.\nA useful rule is:\n\nEvery standardized CSV in registry/ must be defined by registry--dictionary.csv.\n\nThe five canonical registry artifacts are:\n\nregistry--packages.csv\nDataset- and release-level descriptive metadata, provenance, coverage, rights, processing, integrity, and status.\n\n\nregistry--parties.csv\nStable identities for people and organizations referenced by the registry.\n\n\nregistry--party-roles.csv\nRelationships between parties and datasets/releases. One row should represent one role assertion.\n\n\nregistry--dictionary.csv\nField-level specification for all standardized registry tables, including itself and the vocabulary schema.\n\n\nregistry--vocab-schema.csv\nAn intentionally empty, header-only CSV that physically represents the common schema all vocabulary files must follow.\nIt is not a vocabulary. It is a standardized registry artifact whose columns are defined in the dictionary.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Repository architecture</span>"
+    ]
+  },
+  {
+    "objectID": "03-repository-architecture.html#vocab",
+    "href": "03-repository-architecture.html#vocab",
+    "title": "4  Repository architecture",
+    "section": "4.3 vocab/",
+    "text": "4.3 vocab/\nThe vocab/ directory contains controlled value sets used by registry fields.\nAll files in this directory should conform to the header in registry--vocab-schema.csv.\nExamples include:\n\nregistry-table-iid.csv;\ncontent-domains.csv;\nrelease-status.csv;\nrole-schema.csv;\ncredit-roles.csv;\ncredit-contribution-degree.csv.\n\nA vocabulary’s filename is descriptive; the standardized structure comes from the vocab schema.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Repository architecture</span>"
+    ]
+  },
+  {
+    "objectID": "03-repository-architecture.html#data",
+    "href": "03-repository-architecture.html#data",
+    "title": "4  Repository architecture",
+    "section": "4.4 data/",
+    "text": "4.4 data/\nThe data/ directory contains acquired releases and derived material.\ndata/&lt;ds_iid&gt;/&lt;release_slug&gt;/\ncreates a direct mapping between registry identities and filesystem locations.\nA release directory may contain:\n\nraw/ — unchanged acquired files;\nextracted/ — machine-generated exports from source containers or databases;\nreference/ — documentation supplied with the release or curated reference material;\ncuration tables or inventories;\na manifest beside the directories it describes.\n\nProjects may add additional derived directories, but raw acquisitions should remain immutable.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Repository architecture</span>"
+    ]
+  },
+  {
+    "objectID": "03-repository-architecture.html#scripts",
+    "href": "03-repository-architecture.html#scripts",
+    "title": "4  Repository architecture",
+    "section": "4.5 scripts/",
+    "text": "4.5 scripts/\nCore scripts implement repeatable registry operations.\nThe shared standard should keep only genuinely generic tools here. Highly source-specific tooling can live in project repositories or an optional utilities area.\nCore examples:\n\nmint dataset, release, and party identifiers;\ncreate and verify manifests;\nvalidate registry CSVs against the dictionary;\nvalidate foreign keys and vocabularies.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Repository architecture</span>"
+    ]
+  },
+  {
+    "objectID": "03-repository-architecture.html#docs",
+    "href": "03-repository-architecture.html#docs",
+    "title": "4  Repository architecture",
+    "section": "4.6 docs/",
+    "text": "4.6 docs/\nThe docs/ directory contains this Quarto-ready handbook.\nThe documentation explains the standard, but does not replace the machine-readable registry.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Repository architecture</span>"
+    ]
+  },
+  {
+    "objectID": "03-repository-architecture.html#separate-glossary-repository",
+    "href": "03-repository-architecture.html#separate-glossary-repository",
+    "title": "4  Repository architecture",
+    "section": "4.7 Separate glossary repository",
+    "text": "4.7 Separate glossary repository\nThe shared lab glossary is maintained independently because it has a different lifecycle from project registries.\nProjects can link to the glossary repository in documentation without copying all glossary content into each registry. This avoids divergent definitions and allows terms to evolve through one shared Git history.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Repository architecture</span>"
+    ]
+  },
+  {
+    "objectID": "03-repository-architecture.html#dependency-model",
+    "href": "03-repository-architecture.html#dependency-model",
+    "title": "4  Repository architecture",
+    "section": "4.8 Dependency model",
+    "text": "4.8 Dependency model\nThe architecture can be summarized as:\nregistry--dictionary.csv\n        │\n        ├── defines registry--packages.csv\n        ├── defines registry--parties.csv\n        ├── defines registry--party-roles.csv\n        ├── defines itself\n        └── defines registry--vocab-schema.csv\n                              │\n                              └── constrains every CSV in vocab/\nProject-specific scientific data structures sit outside this core and can build on it without changing the shared registry standard.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Repository architecture</span>"
+    ]
+  },
+  {
+    "objectID": "04-packages.html",
+    "href": "04-packages.html",
+    "title": "5  Packages: datasets and releases",
+    "section": "",
+    "text": "5.1 Row meaning\nOne row represents one acquired release or snapshot of one dataset concept.\nThis means that repeated releases of the same dataset produce repeated rows with the same:\nbut different:",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Packages: datasets and releases</span>"
+    ]
+  },
+  {
+    "objectID": "04-packages.html#row-meaning",
+    "href": "04-packages.html#row-meaning",
+    "title": "5  Packages: datasets and releases",
+    "section": "",
+    "text": "dataset_id;\nds_iid;\n\n\n\nrelease_id;\nrelease_slug;\nrelease-specific dates, source details, processing notes, and integrity fields.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Packages: datasets and releases</span>"
+    ]
+  },
+  {
+    "objectID": "04-packages.html#field-reference",
+    "href": "04-packages.html#field-reference",
+    "title": "5  Packages: datasets and releases",
+    "section": "5.2 Field reference",
+    "text": "5.2 Field reference\n\n\n\n\n\n\n\n\n\nField\nRequired\nType/domain\nMeaning\n\n\n\n\ndataset_id\nyes\nstring / UUIDv4\nStable opaque identifier for the dataset concept. Copied unchanged to every release row for that dataset.\n\n\nds_iid\nyes\nstring / IID\nStable human-readable dataset identifier in lowercase kebab-case. Immutable and never reused.\n\n\nrelease_id\nconditional\nstring / UUIDv7\nOpaque identifier for a specific acquired release or snapshot. Required for a registered release.\n\n\nrelease_slug\nconditional\nstring / pattern\nHuman-readable release identifier: {ds_iid}--ingYYYYMMDD--rNNN.\n\n\ntitle\nyes\nfree text\nHuman-readable title for this dataset release. Prefer source-provided wording when available.\n\n\nabstract\nyes\nfree text\nConcise description of the content and scope of the release.\n\n\npurpose\nno\nfree text\nWhy the source dataset was created or why it is being incorporated into the project.\n\n\nsource_org\nyes\nfree text\nOrganization primarily responsible for the source delivery or source system.\n\n\nsource_citation\nyes\nfree text\nCitation or provenance statement describing the source of this release.\n\n\nlanding_page_url\nno\nURL/text\nPublic or internal landing page for the source dataset when one exists.\n\n\ndoi\nno\nidentifier/text\nDOI associated with the source dataset or release, if applicable.\n\n\neml_package_id\nno\nidentifier/text\nEML package identifier when the source uses Ecological Metadata Language.\n\n\nrepo_scope\nno\nfree text / controlled later\nRepository or archive system in which the source object is registered.\n\n\nrepo_identifier\nno\nfree text\nIdentifier assigned by the source repository or archive.\n\n\nrepo_revision\nno\nfree text\nRevision/version identifier used by the source repository.\n\n\ncoverage_start\nconditional\ndate/datetime\nBeginning of the temporal coverage represented by the data, when applicable.\n\n\ncoverage_end\nconditional\ndate/datetime\nEnd of temporal coverage represented by the data, when applicable.\n\n\npublished_date\nno\ndate\nDate the source release was published, when known.\n\n\ningest_date\nconditional\ndate\nDate this release entered the local registry/workflow. Drives the readable release slug.\n\n\ngeo_description\nconditional\nfree text\nHuman-readable spatial coverage description.\n\n\nwest\nno\nfloat\nWestern longitude/bounding coordinate when a bounding box is useful.\n\n\neast\nno\nfloat\nEastern longitude/bounding coordinate.\n\n\nsouth\nno\nfloat\nSouthern latitude/bounding coordinate.\n\n\nnorth\nno\nfloat\nNorthern latitude/bounding coordinate.\n\n\nspatial_reference\nno\nfree text\nSpatial reference system or coordinate reference description when applicable.\n\n\ncontent_domains\nconditional\nvocab / multivalue\nHigh-level content categories governed by vocab/content-domains.csv. Multiple values use an unpadded pipe.\n\n\nlicense\nconditional\nfree text\nFormal license governing reuse, if stated.\n\n\nintellectual_rights\nconditional\nfree text\nRights, restrictions, data-sharing conditions, or intellectual-property notes not captured by license.\n\n\nmethods_summary\nconditional\nfree text\nBrief summary of how the source data were collected or generated.\n\n\nprocessing_summary\nconditional\nfree text\nBrief summary of transformations already applied before or during ingest.\n\n\nupstream_release_ids\nno\nmultivalue IDs\nRelease IDs that are direct ancestors or upstream inputs. Do not use merely to indicate thematic similarity.\n\n\nfile_manifest_path\nconditional\nproject-relative path\nPath to the release manifest. Use a project-relative POSIX path.\n\n\nmanifest_sha256\nconditional\nSHA-256 hex\nSHA-256 digest of the manifest file itself.\n\n\nfile_count\nconditional\ninteger\nNumber of files represented by the manifest.\n\n\ntotal_bytes\nconditional\ninteger\nTotal byte size of all files represented by the manifest.\n\n\nrelease_status\nyes\nvocab\nLifecycle/registration status governed by vocab/release-status.csv.\n\n\nnotes\nno\nfree text\nCurator notes, caveats, unresolved issues, and contextual information that do not fit another field.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Packages: datasets and releases</span>"
+    ]
+  },
+  {
+    "objectID": "04-packages.html#dataset-level-vs.-release-level-metadata",
+    "href": "04-packages.html#dataset-level-vs.-release-level-metadata",
+    "title": "5  Packages: datasets and releases",
+    "section": "5.3 Dataset-level vs. release-level metadata",
+    "text": "5.3 Dataset-level vs. release-level metadata\nSome package fields describe the stable conceptual dataset; others may vary by release.\nIn practice, the packages table intentionally stores both in one release-grained table because a self-contained release row is easier to archive, export, validate, and interpret than a heavily normalized metadata database.\nWhen a value is stable across releases, copy it consistently. When a later release changes scope, rights, source system, processing, or coverage, record the release-specific truth rather than forcing consistency.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Packages: datasets and releases</span>"
+    ]
+  },
+  {
+    "objectID": "04-packages.html#creating-a-new-dataset-concept",
+    "href": "04-packages.html#creating-a-new-dataset-concept",
+    "title": "5  Packages: datasets and releases",
+    "section": "5.4 Creating a new dataset concept",
+    "text": "5.4 Creating a new dataset concept\nCreate a new dataset_id and ds_iid when the source represents a genuinely distinct conceptual dataset.\nDo not create a new dataset merely because:\n\nyou downloaded it again;\na new annual release appeared;\nthe file format changed;\nthe source repository issued a new revision;\nadditional files were added to a later snapshot.\n\nThose situations generally indicate a new release of the existing dataset.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Packages: datasets and releases</span>"
+    ]
+  },
+  {
+    "objectID": "04-packages.html#creating-a-new-release",
+    "href": "04-packages.html#creating-a-new-release",
+    "title": "5  Packages: datasets and releases",
+    "section": "5.5 Creating a new release",
+    "text": "5.5 Creating a new release\nA new release is appropriate when the actual acquired content has changed or a new source snapshot must be distinguished from the prior one.\nExamples:\n\nannual or periodic source updates;\na collaborator sends a corrected delivery;\nthe source repository republishes a new version;\nyou intentionally preserve a later database export;\nthe same named resource is acquired at a different time and differs in content.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Packages: datasets and releases</span>"
+    ]
+  },
+  {
+    "objectID": "04-packages.html#provenance-fields",
+    "href": "04-packages.html#provenance-fields",
+    "title": "5  Packages: datasets and releases",
+    "section": "5.6 Provenance fields",
+    "text": "5.6 Provenance fields\nsource_org, source_citation, repository fields, URLs, and identifiers should reflect the source evidence.\nPrefer:\n\na source-provided citation;\nrepository metadata;\naccompanying documentation;\na curator-written provenance statement when no formal citation exists.\n\nDo not make a citation look more formal than the evidence supports.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Packages: datasets and releases</span>"
+    ]
+  },
+  {
+    "objectID": "04-packages.html#temporal-coverage-vs.-acquisition-time",
+    "href": "04-packages.html#temporal-coverage-vs.-acquisition-time",
+    "title": "5  Packages: datasets and releases",
+    "section": "5.7 Temporal coverage vs. acquisition time",
+    "text": "5.7 Temporal coverage vs. acquisition time\nDo not confuse:\n\ncoverage_start / coverage_end — when the observations or represented phenomena occurred;\npublished_date — when the source release was published;\ningest_date — when this release entered the local workflow.\n\nThese dates can be very different.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Packages: datasets and releases</span>"
+    ]
+  },
+  {
+    "objectID": "04-packages.html#geographic-coverage",
+    "href": "04-packages.html#geographic-coverage",
+    "title": "5  Packages: datasets and releases",
+    "section": "5.8 Geographic coverage",
+    "text": "5.8 Geographic coverage\nUse geo_description for a human-readable description.\nThe bounding fields are optional. They are most useful when a simple rectangular extent is meaningful and the coordinates can be supported by the source or a reproducible calculation.\nDo not invent a bounding box from a vague place name merely to fill four fields.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Packages: datasets and releases</span>"
+    ]
+  },
+  {
+    "objectID": "04-packages.html#rights",
+    "href": "04-packages.html#rights",
+    "title": "5  Packages: datasets and releases",
+    "section": "5.9 Rights",
+    "text": "5.9 Rights\nlicense records a formal license when one exists.\nintellectual_rights captures broader restrictions or conditions such as:\n\nredistribution limitations;\nattribution requirements;\nagreements with collaborators;\nsource-agency conditions;\nuncertainty about rights.\n\nIf rights are unclear, document that uncertainty.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Packages: datasets and releases</span>"
+    ]
+  },
+  {
+    "objectID": "04-packages.html#methods-and-processing",
+    "href": "04-packages.html#methods-and-processing",
+    "title": "5  Packages: datasets and releases",
+    "section": "5.10 Methods and processing",
+    "text": "5.10 Methods and processing\nmethods_summary describes how the source data were produced.\nprocessing_summary describes what happened to the data before or during acquisition/ingest.\nThis distinction is useful because a dataset may have been collected with one method, exported through another system, cleaned by a source collaborator, and then locally extracted without altering the original release.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Packages: datasets and releases</span>"
+    ]
+  },
+  {
+    "objectID": "04-packages.html#lineage",
+    "href": "04-packages.html#lineage",
+    "title": "5  Packages: datasets and releases",
+    "section": "5.11 Lineage",
+    "text": "5.11 Lineage\nUse upstream_release_ids only for actual lineage relationships.\nA prior release is not automatically an upstream ancestor. For example, two independent exports from the same external database may overlap without one being derived from the other.\nDocument ambiguous lineage in notes.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Packages: datasets and releases</span>"
+    ]
+  },
+  {
+    "objectID": "04-packages.html#integrity-fields",
+    "href": "04-packages.html#integrity-fields",
+    "title": "5  Packages: datasets and releases",
+    "section": "5.12 Integrity fields",
+    "text": "5.12 Integrity fields\nThe four integrity fields are normally script-generated:\n\nfile_manifest_path;\nmanifest_sha256;\nfile_count;\ntotal_bytes.\n\nDo not hand-calculate them when the manifest script is available.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Packages: datasets and releases</span>"
+    ]
+  },
+  {
+    "objectID": "04-packages.html#release-status",
+    "href": "04-packages.html#release-status",
+    "title": "5  Packages: datasets and releases",
+    "section": "5.13 Release status",
+    "text": "5.13 Release status\nrelease_status is controlled by vocab/release-status.csv.\nThe status vocabulary should express the local registration/curation workflow. A status such as registered should have a precise definition—for example, required metadata completed, raw release preserved, manifest generated, and required relationships validated.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Packages: datasets and releases</span>"
+    ]
+  },
+  {
+    "objectID": "04-packages.html#notes-are-important",
+    "href": "04-packages.html#notes-are-important",
+    "title": "5  Packages: datasets and releases",
+    "section": "5.14 Notes are important",
+    "text": "5.14 Notes are important\nThe notes field is not a dumping ground, but it is intentionally flexible.\nUse it for information that would otherwise be lost, such as:\n\npartial supersession;\nscope caveats;\npromises of follow-on deliveries that never arrived;\nconflicting dates;\nnaming mismatches between source systems;\nunresolved rights questions;\nknown limitations that should be revisited during harmonization.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Packages: datasets and releases</span>"
+    ]
+  },
+  {
+    "objectID": "05-parties.html",
+    "href": "05-parties.html",
+    "title": "6  Parties: people and organizations",
+    "section": "",
+    "text": "6.1 Why parties are separate\nA person’s identity is not the same thing as their contribution.\nFor example, a person may be:\nThe parties table therefore answers:\nThe party-roles table answers:",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Parties: people and organizations</span>"
+    ]
+  },
+  {
+    "objectID": "05-parties.html#why-parties-are-separate",
+    "href": "05-parties.html#why-parties-are-separate",
+    "title": "6  Parties: people and organizations",
+    "section": "",
+    "text": "a field investigator for one dataset;\na curator for another;\nan author or data manager for a third;\na supervisor at the dataset level but not involved in a particular release.\n\n\n\nWho is this?\n\n\n\nWhat did this party do, for which dataset or release?",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Parties: people and organizations</span>"
+    ]
+  },
+  {
+    "objectID": "05-parties.html#target-field-reference",
+    "href": "05-parties.html#target-field-reference",
+    "title": "6  Parties: people and organizations",
+    "section": "6.2 Target field reference",
+    "text": "6.2 Target field reference\n\n\n\n\n\n\n\n\n\nField\nRequired\nType/domain\nMeaning\n\n\n\n\nparty_id\nyes\nstring / UUIDv4\nStable opaque identifier for a person or organization.\n\n\nparty_iid\nyes\nstring / IID\nStable human-readable identifier in lowercase kebab-case; immutable and never reused.\n\n\ntype\nyes\nenum\nWhether the party is a person or organization.\n\n\ngiven_name\nconditional\nfree text\nGiven name for a person.\n\n\nmiddle_name\nno\nfree text\nMiddle name or initials for a person.\n\n\nsurname\nconditional\nfree text\nSurname/family name for a person.\n\n\norg_name\nconditional\nfree text\nOfficial or preferred organization name when the party is an organization.\n\n\nemail\nno\nfree text\nContact email when appropriate to record and share.\n\n\norcid\nno\nORCID pattern\nORCID identifier for a person when available.\n\n\norganization\nno\nfree text\nPrimary affiliation or organization for a person, when useful.\n\n\nnotes\nno\nfree text\nIdentity clarification, alternate forms, affiliation caveats, or other curation notes.\n\n\n\n\n\n\n\n\n\nNote\n\n\n\nThe intended v1 schema removes role_default. Roles should not be treated as intrinsic properties of a party; context-specific contribution belongs in registry--party-roles.csv.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Parties: people and organizations</span>"
+    ]
+  },
+  {
+    "objectID": "05-parties.html#person-records",
+    "href": "05-parties.html#person-records",
+    "title": "6  Parties: people and organizations",
+    "section": "6.3 Person records",
+    "text": "6.3 Person records\nFor a person:\n\ntype=person;\nuse the person’s preferred or documented name form;\nrecord ORCID when known and appropriate;\nuse organization for affiliation if useful;\nuse notes to document ambiguous identity, name variants, or uncertain affiliation.\n\nDo not fabricate middle names, email addresses, ORCIDs, or institutional affiliations.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Parties: people and organizations</span>"
+    ]
+  },
+  {
+    "objectID": "05-parties.html#organization-records",
+    "href": "05-parties.html#organization-records",
+    "title": "6  Parties: people and organizations",
+    "section": "6.4 Organization records",
+    "text": "6.4 Organization records\nFor an organization:\n\ntype=organization;\npopulate org_name;\nleave person-name fields not applicable according to the registry null convention;\ncreate a stable party_id and party_iid just as for a person.\n\nOrganizations may themselves have roles in relation to datasets.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Parties: people and organizations</span>"
+    ]
+  },
+  {
+    "objectID": "05-parties.html#party_id-and-party_iid",
+    "href": "05-parties.html#party_id-and-party_iid",
+    "title": "6  Parties: people and organizations",
+    "section": "6.5 party_id and party_iid",
+    "text": "6.5 party_id and party_iid\nparty_id is the stable opaque identifier used for relationships.\nparty_iid is the readable immutable identifier.\nGood IIDs are:\n\nlowercase;\nshort but recognizable;\nkebab-case;\nstable even if a person’s affiliation changes.\n\nExamples:\nnjelinski\nclping\nalaska-center-conservation-science\nusda-nrcs\nAn IID is not intended to store a person’s current job title or organization.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Parties: people and organizations</span>"
+    ]
+  },
+  {
+    "objectID": "05-parties.html#duplicate-prevention",
+    "href": "05-parties.html#duplicate-prevention",
+    "title": "6  Parties: people and organizations",
+    "section": "6.6 Duplicate prevention",
+    "text": "6.6 Duplicate prevention\nBefore creating a party, search existing party records.\nThe same person should not receive separate identities merely because:\n\ntheir name is rendered differently in different publications;\none source uses initials and another uses the full name;\ntheir affiliation changes;\none source includes an ORCID and another does not.\n\nIf two records may represent the same person but the evidence is uncertain, keep the uncertainty visible rather than merging aggressively.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Parties: people and organizations</span>"
+    ]
+  },
+  {
+    "objectID": "05-parties.html#privacy-and-appropriateness",
+    "href": "05-parties.html#privacy-and-appropriateness",
+    "title": "6  Parties: people and organizations",
+    "section": "6.7 Privacy and appropriateness",
+    "text": "6.7 Privacy and appropriateness\nThe registry should contain only contact/identity information that is appropriate for the research context.\nAn email address is optional. Public persistent identifiers such as ORCID are generally preferable for long-term identity resolution when available.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Parties: people and organizations</span>"
+    ]
+  },
+  {
+    "objectID": "06-party-roles.html",
+    "href": "06-party-roles.html",
+    "title": "7  Party roles and contributor attribution",
+    "section": "",
+    "text": "7.1 Fundamental row rule\nDo not store several roles in a pipe-delimited role_code cell.\nIf one contributor performed three CRediT roles, create three rows.\nThis makes role assertions independently searchable, attributable, reviewable, and citable.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Party roles and contributor attribution</span>"
+    ]
+  },
+  {
+    "objectID": "06-party-roles.html#fundamental-row-rule",
+    "href": "06-party-roles.html#fundamental-row-rule",
+    "title": "7  Party roles and contributor attribution",
+    "section": "",
+    "text": "One row = one party × one dataset/release scope × one role assertion.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Party roles and contributor attribution</span>"
+    ]
+  },
+  {
+    "objectID": "06-party-roles.html#target-v1-schema",
+    "href": "06-party-roles.html#target-v1-schema",
+    "title": "7  Party roles and contributor attribution",
+    "section": "7.2 Target v1 schema",
+    "text": "7.2 Target v1 schema\n\n\n\n\n\n\n\n\n\nField\nRequired\nType/domain\nMeaning\n\n\n\n\nrole_assignment_id\nyes\nstring / UUIDv4\nStable opaque identifier for this one role assertion.\n\n\ndataset_id\nyes\nforeign key\nDataset concept to which the contribution applies.\n\n\nrelease_id\nno\nforeign key\nSpecific release to which the contribution applies. Blank means the assertion applies at the dataset level.\n\n\nparty_id\nyes\nforeign key\nPerson or organization performing the role.\n\n\nrole_schema\nyes\nvocab\nRole system being used, e.g. credit, datacite, eml, or a designated local schema.\n\n\nrole_code\nyes\nconditional vocab\nMachine-readable role code valid under the selected role_schema. One row contains one role.\n\n\ncontribution_degree\nno\nconditional vocab\nOptional degree such as CRediT lead, equal, or supporting when supported by the role schema.\n\n\nrole_basis\nno\nvocab / proposed\nHow the role was established, e.g. declared by source, publication, curator-assigned, or inferred.\n\n\nrole_source\nno\nfree text / path / identifier\nCitation, URL, file path, or note pointing to the evidence for the role assertion.\n\n\nnotes\nno\nfree text\nAdditional context about the role assertion.\n\n\n\n\n\n\n\n\n\nWarning\n\n\n\nThe current legacy party-role CSV and dictionary have not yet been migrated to this target schema. This chapter documents the recommended v1 design. Complete the migration before tagging the registry template as v1.0.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Party roles and contributor attribution</span>"
+    ]
+  },
+  {
+    "objectID": "06-party-roles.html#dataset-level-and-release-level-contributions",
+    "href": "06-party-roles.html#dataset-level-and-release-level-contributions",
+    "title": "7  Party roles and contributor attribution",
+    "section": "7.3 Dataset-level and release-level contributions",
+    "text": "7.3 Dataset-level and release-level contributions\ndataset_id is always required.\nrelease_id is optional:\n\nblank release_id means the role applies to the dataset concept generally;\npopulated release_id means the role applies specifically to that release.\n\nThis avoids a separate role_scope field while preserving an important distinction.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Party roles and contributor attribution</span>"
+    ]
+  },
+  {
+    "objectID": "06-party-roles.html#why-ids-rather-than-readable-slugs",
+    "href": "06-party-roles.html#why-ids-rather-than-readable-slugs",
+    "title": "7  Party roles and contributor attribution",
+    "section": "7.4 Why IDs rather than readable slugs?",
+    "text": "7.4 Why IDs rather than readable slugs?\nForeign-key relationships should use stable opaque identifiers:\n\ndataset_id;\nrelease_id;\nparty_id.\n\nReadable IIDs and slugs are still available in the related tables and can be joined for display.\nThis avoids duplicating human-readable identifiers throughout relationship tables and reduces the chance that a spelling change breaks referential integrity.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Party roles and contributor attribution</span>"
+    ]
+  },
+  {
+    "objectID": "06-party-roles.html#role-schemas",
+    "href": "06-party-roles.html#role-schemas",
+    "title": "7  Party roles and contributor attribution",
+    "section": "7.5 Role schemas",
+    "text": "7.5 Role schemas\nrole_schema identifies the controlled role system being used.\nExamples may include:\n\ncredit;\ndatacite;\neml;\na deliberately defined local role schema.\n\nThe legal role_schema values live in vocab/role-schema.csv.\nrole_code must then be validated against the vocabulary associated with that schema.\nThis is a conditional vocabulary relationship.\nFor example:\nrole_schema = credit\nrole_code   = data-curation\nmeans that data-curation must exist in vocab/credit-roles.csv.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Party roles and contributor attribution</span>"
+    ]
+  },
+  {
+    "objectID": "06-party-roles.html#credit-integration",
+    "href": "06-party-roles.html#credit-integration",
+    "title": "7  Party roles and contributor attribution",
+    "section": "7.6 CRediT integration",
+    "text": "7.6 CRediT integration\nCRediT is the Contributor Role Taxonomy standardized as ANSI/NISO Z39.104-2022. It defines 14 contributor roles and allows a contributor to hold multiple roles. When multiple contributors share a role, an optional degree of contribution may be specified as lead, equal, or supporting.\nThe registry should include:\nvocab/credit-roles.csv\nvocab/credit-contribution-degree.csv\nThe canonical CRediT role vocabulary contains:\n\nConceptualization\nData curation\nFormal analysis\nFunding acquisition\nInvestigation\nMethodology\nProject administration\nResources\nSoftware\nSupervision\nValidation\nVisualization\nWriting – original draft\nWriting – review & editing\n\nFor external standards, preserve canonical preferred labels and definitions in the vocabulary while using a local machine-readable term_code.\nCanonical references:\n\nhttps://credit.niso.org/\nhttps://credit.niso.org/contributor-roles-defined/\nhttps://credit.niso.org/contributor-roles/",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Party roles and contributor attribution</span>"
+    ]
+  },
+  {
+    "objectID": "06-party-roles.html#contribution-degree",
+    "href": "06-party-roles.html#contribution-degree",
+    "title": "7  Party roles and contributor attribution",
+    "section": "7.7 Contribution degree",
+    "text": "7.7 Contribution degree\nFor CRediT, contribution_degree may be:\nlead\nequal\nsupporting\nThe field is optional. It should not be populated for a role schema that does not support the concept unless the local standard explicitly defines how to interpret it.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Party roles and contributor attribution</span>"
+    ]
+  },
+  {
+    "objectID": "06-party-roles.html#role-evidence",
+    "href": "06-party-roles.html#role-evidence",
+    "title": "7  Party roles and contributor attribution",
+    "section": "7.8 Role evidence",
+    "text": "7.8 Role evidence\nA structured contributor system is much stronger if the source of a role assertion is visible.\nThe target design therefore includes:\n\nrole_basis — how the role was established;\nrole_source — evidence or reference.\n\nA future role-basis.csv vocabulary might include values such as:\nsource-declared\ncontributor-declared\npublication\ncurator-assigned\ninferred\nThe final terms should be reviewed before the vocabulary is adopted.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Party roles and contributor attribution</span>"
+    ]
+  },
+  {
+    "objectID": "06-party-roles.html#example",
+    "href": "06-party-roles.html#example",
+    "title": "7  Party roles and contributor attribution",
+    "section": "7.9 Example",
+    "text": "7.9 Example\nA contributor who led field collection and equally contributed to methodology would receive two rows:\n&lt;uuid-1&gt;,&lt;dataset-id&gt;,,&lt;party-id&gt;,credit,investigation,lead,publication,&lt;doi&gt;,...\n&lt;uuid-2&gt;,&lt;dataset-id&gt;,,&lt;party-id&gt;,credit,methodology,equal,publication,&lt;doi&gt;,...",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Party roles and contributor attribution</span>"
+    ]
+  },
+  {
+    "objectID": "06-party-roles.html#what-still-needs-to-be-implemented-for-credit",
+    "href": "06-party-roles.html#what-still-needs-to-be-implemented-for-credit",
+    "title": "7  Party roles and contributor attribution",
+    "section": "7.10 What still needs to be implemented for CRediT",
+    "text": "7.10 What still needs to be implemented for CRediT\nBefore the template is complete:\n\nPlace credit-roles.csv in vocab/.\nPlace credit-contribution-degree.csv in vocab/.\nEnsure role-schema.csv contains the credit term and identifies CRediT as the intended scheme.\nUpdate the party-role section of registry--dictionary.csv to the target schema.\nRemove role_default from the parties schema.\nUpdate validation so role_code is checked against the vocabulary associated with role_schema.\nValidate contribution_degree against the CRediT degree vocabulary when role_schema=credit.\nDecide whether to adopt a role-basis.csv vocabulary.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Party roles and contributor attribution</span>"
+    ]
+  },
+  {
+    "objectID": "07-dictionary.html",
+    "href": "07-dictionary.html",
+    "title": "8  The registry dictionary",
+    "section": "",
+    "text": "8.1 The dictionary should define everything in registry/\nThe intended standard has dictionary sections for:\nThe value of table_iid is governed by:\nThis creates a direct one-to-one mapping between standardized registry artifacts and dictionary table identifiers.",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>The registry dictionary</span>"
+    ]
+  },
+  {
+    "objectID": "07-dictionary.html#the-dictionary-should-define-everything-in-registry",
+    "href": "07-dictionary.html#the-dictionary-should-define-everything-in-registry",
+    "title": "8  The registry dictionary",
+    "section": "",
+    "text": "packages\nparties\nparty-roles\ndictionary\nvocab-schema\n\nvocab/registry-table-iid.csv",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>The registry dictionary</span>"
+    ]
+  },
+  {
+    "objectID": "07-dictionary.html#dictionary-field-reference",
+    "href": "07-dictionary.html#dictionary-field-reference",
+    "title": "8  The registry dictionary",
+    "section": "8.2 Dictionary field reference",
+    "text": "8.2 Dictionary field reference\n\n\n\n\n\n\n\n\n\nField\nRequired\nType/domain\nMeaning\n\n\n\n\ntable_iid\nyes\nvocab\nCanonical registry table/artifact identifier. Governed by vocab/registry-table-iid.csv.\n\n\ncolumn_iid\nyes\npattern\nExact machine-readable column name as it appears in the CSV header.\n\n\ncolumn_label\nyes\nfree text\nHuman-readable label for the column.\n\n\nordinal\nyes\ninteger\nOne-based column position in the physical CSV.\n\n\nrequired\nyes\nenum\nRequirement state such as yes, no, or conditional.\n\n\nstorage_type\nyes\nenum\nExpected physical/storage type, e.g. string, integer, float, datetime.\n\n\nvalue_domain_type\nyes\nenum\nHow legal values are constrained: free_text, enum, vocab, range, or pattern.\n\n\nallowed_values\nconditional\nfree text\nInline values, regular expression, or range expression when the constraint is stored directly.\n\n\nvocab_ref\nconditional\npath/filename\nVocabulary file used when value_domain_type=vocab.\n\n\nnull_tokens\nyes\nfree text\nAllowed null semantics for the field. Registry convention distinguishes blank, nap, unk, and dictionary-only none.\n\n\ndescription\nyes\nfree text\nNormative definition of the field and how it should be interpreted.\n\n\nnotes\nno\nfree text\nAdditional implementation guidance, examples, or caveats.",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>The registry dictionary</span>"
+    ]
+  },
+  {
+    "objectID": "07-dictionary.html#self-description",
+    "href": "07-dictionary.html#self-description",
+    "title": "8  The registry dictionary",
+    "section": "8.3 Self-description",
+    "text": "8.3 Self-description\nThe dictionary is self-describing.\nRows where:\ntable_iid = dictionary\ndefine the columns of registry--dictionary.csv itself.\nThis is intentionally recursive: the same mechanism used to define packages also defines the dictionary.",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>The registry dictionary</span>"
+    ]
+  },
+  {
+    "objectID": "07-dictionary.html#value_domain_type",
+    "href": "07-dictionary.html#value_domain_type",
+    "title": "8  The registry dictionary",
+    "section": "8.4 value_domain_type",
+    "text": "8.4 value_domain_type\nThe value-domain type tells validators and curators how to interpret constraints.\n\nfree_text\nHuman-readable prose is permitted.\nUse this only when a field genuinely needs unconstrained text.\n\n\nenum\nA small finite list is stored directly in allowed_values.\nExample:\nperson|organization\n\n\nvocab\nThe legal values come from a maintained vocabulary file referenced in vocab_ref.\nExample:\nvocab_ref = release-status.csv\n\n\npattern\nThe value must match a defined syntax, usually represented as a regular expression or documented pattern.\nUseful for:\n\nUUID formatting;\ndates;\nIIDs;\nSHA-256 strings;\nrelease slugs.\n\n\n\nrange\nThe value must fall within a numeric or ordinal range.",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>The registry dictionary</span>"
+    ]
+  },
+  {
+    "objectID": "07-dictionary.html#inline-lists",
+    "href": "07-dictionary.html#inline-lists",
+    "title": "8  The registry dictionary",
+    "section": "8.5 Inline lists",
+    "text": "8.5 Inline lists\nWhen multiple allowed values are encoded in one dictionary cell, use an unpadded pipe:\nyes|no|conditional\nnot:\nyes | no | conditional\nThis convention is also used for intentionally multivalued registry cells where the schema allows them.",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>The registry dictionary</span>"
+    ]
+  },
+  {
+    "objectID": "07-dictionary.html#null-semantics",
+    "href": "07-dictionary.html#null-semantics",
+    "title": "8  The registry dictionary",
+    "section": "8.6 Null semantics",
+    "text": "8.6 Null semantics\nThe registry distinguishes several states.\n\nblank\nNot yet assessed, not yet entered, or temporarily unresolved during drafting.\nBlank should generally disappear from fields that are required before registration is complete.\n\n\nnap\nNot applicable.\nExample: a DOI field for a locally created dataset that has never had a DOI.\n\n\nunk\nApplicable, but unknown after review.\nExample: publication date known to exist but not recoverable from available documentation.\n\n\nnone\nUsed in the dictionary to mean that a field is not permitted to be null.\nDo not use ad hoc null strings such as:\nNA\nN/A\nNULL\nNone\n-9999",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>The registry dictionary</span>"
+    ]
+  },
+  {
+    "objectID": "07-dictionary.html#changing-the-dictionary",
+    "href": "07-dictionary.html#changing-the-dictionary",
+    "title": "8  The registry dictionary",
+    "section": "8.7 Changing the dictionary",
+    "text": "8.7 Changing the dictionary\nChanging the dictionary changes the registry standard.\nTherefore:\n\npropose the change;\nexplain why it is needed;\nupdate the dictionary;\nupdate the physical CSV header/template;\nupdate relevant vocabularies;\nupdate validation;\nmigrate existing rows if necessary;\ndocument the schema change;\nreview before merge.\n\nA dictionary change should never be treated as a casual spreadsheet edit.",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>The registry dictionary</span>"
+    ]
+  },
+  {
+    "objectID": "07-dictionary.html#registry--vocab-schema.csv",
+    "href": "07-dictionary.html#registry--vocab-schema.csv",
+    "title": "8  The registry dictionary",
+    "section": "8.8 registry--vocab-schema.csv",
+    "text": "8.8 registry--vocab-schema.csv\nThe vocabulary schema is a standardized registry artifact and should therefore be represented in the dictionary under:\ntable_iid = vocab-schema\nThe 16 vocabulary-field definition rows belong inside the main dictionary. A separate dictionary--vocab-fields.csv is useful only as a development fragment and should not be the canonical source once those rows have been merged.",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>The registry dictionary</span>"
+    ]
+  },
+  {
+    "objectID": "08-vocabularies.html",
+    "href": "08-vocabularies.html",
+    "title": "9  Controlled vocabularies",
+    "section": "",
+    "text": "9.1 Vocabulary architecture\nEvery vocabulary CSV in vocab/ conforms to:\nThat file contains a header only and no term rows.\nIts fields are defined in:\nunder:\nThis creates one standardized vocabulary structure for the entire registry.",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Controlled vocabularies</span>"
+    ]
+  },
+  {
+    "objectID": "08-vocabularies.html#vocabulary-architecture",
+    "href": "08-vocabularies.html#vocabulary-architecture",
+    "title": "9  Controlled vocabularies",
+    "section": "",
+    "text": "registry/registry--vocab-schema.csv\n\n\nregistry/registry--dictionary.csv\n\ntable_iid = vocab-schema",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Controlled vocabularies</span>"
+    ]
+  },
+  {
+    "objectID": "08-vocabularies.html#vocabulary-field-reference",
+    "href": "08-vocabularies.html#vocabulary-field-reference",
+    "title": "9  Controlled vocabularies",
+    "section": "9.2 Vocabulary field reference",
+    "text": "9.2 Vocabulary field reference\n\n\n\n\n\n\n\n\n\nField\nRequired\nType/domain\nMeaning\n\n\n\n\nconcept_iid\nyes\npattern\nStable identifier for the concept represented by the vocabulary row. Recommended form: {vocab_iid}--{term_code}.\n\n\nterm_code\nyes\npattern\nMachine-readable value used in governed registry/data fields. Lowercase kebab-case for local vocabularies.\n\n\npref_label\nyes\nfree text\nPreferred human-readable label.\n\n\nalt_labels\nno\nmultivalue text\nAlternative labels, abbreviations, synonyms, or source-specific spellings separated by an unpadded pipe.\n\n\ndefinition\nyes\nfree text\nDefinition of the concept. Use canonical wording when adopting an external standard.\n\n\nbroader_id\nno\nconcept ID\nImmediate broader/parent concept for hierarchical vocabularies.\n\n\nstatus\nyes\nenum\nConcept lifecycle state, typically active, proposed, or deprecated.\n\n\ncreated\nyes\ndate\nDate the vocabulary row was created, YYYY-MM-DD.\n\n\nmodified\nyes\ndate\nDate the vocabulary row was last substantively modified, YYYY-MM-DD.\n\n\nscope_note\nno\nfree text\nGuidance on when or how the concept should be used.\n\n\nrelated_ids\nno\nmultivalue IDs\nRelated local concept identifiers that are associative rather than hierarchical/equivalent.\n\n\nexact_match_ids\nno\nmultivalue IDs/URIs\nExternal identifiers judged to represent the same concept.\n\n\nclose_match_ids\nno\nmultivalue IDs/URIs\nExternal identifiers representing closely related but non-identical concepts.\n\n\nreplaced_by\nconditional\nconcept ID\nPreferred successor when a concept is deprecated.\n\n\nsource\nyes\nfree text / citation / URL\nAuthoritative source for the term or definition.\n\n\nnote\nno\nfree text\nCurator comments that do not belong in the definition or scope note.",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Controlled vocabularies</span>"
+    ]
+  },
+  {
+    "objectID": "08-vocabularies.html#why-a-common-schema",
+    "href": "08-vocabularies.html#why-a-common-schema",
+    "title": "9  Controlled vocabularies",
+    "section": "9.3 Why a common schema?",
+    "text": "9.3 Why a common schema?\nA vocabulary is more than a list of strings.\nThe common structure allows the registry to represent:\n\nstable concept identity;\nmachine codes;\nhuman labels;\nsynonyms;\ndefinitions;\nhierarchy;\nlifecycle state;\nexternal mappings;\nprovenance.\n\nThat becomes especially valuable for large scientific classifications and externally maintained standards.",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Controlled vocabularies</span>"
+    ]
+  },
+  {
+    "objectID": "08-vocabularies.html#concept_iid-vs.-term_code",
+    "href": "08-vocabularies.html#concept_iid-vs.-term_code",
+    "title": "9  Controlled vocabularies",
+    "section": "9.4 concept_iid vs. term_code",
+    "text": "9.4 concept_iid vs. term_code\nThese two fields serve different purposes.\n\nterm_code\nThe machine-readable value stored in a governed field.\nExample:\ndata-curation\n\n\nconcept_iid\nA stable identifier for the vocabulary concept itself.\nRecommended local form:\ncredit-role--data-curation\nA term code may be readable, but the concept ID makes relationships and mappings more explicit.",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Controlled vocabularies</span>"
+    ]
+  },
+  {
+    "objectID": "08-vocabularies.html#preferred-and-alternate-labels",
+    "href": "08-vocabularies.html#preferred-and-alternate-labels",
+    "title": "9  Controlled vocabularies",
+    "section": "9.5 Preferred and alternate labels",
+    "text": "9.5 Preferred and alternate labels\npref_label is the canonical display label.\nalt_labels can contain synonyms, abbreviations, older labels, or source-specific variants.\nMultiple alternative labels use an unpadded pipe:\ndata management|research data curation\nAlternative labels do not become additional legal term codes unless the vocabulary explicitly creates them as distinct concepts.",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Controlled vocabularies</span>"
+    ]
+  },
+  {
+    "objectID": "08-vocabularies.html#definitions-and-sources",
+    "href": "08-vocabularies.html#definitions-and-sources",
+    "title": "9  Controlled vocabularies",
+    "section": "9.6 Definitions and sources",
+    "text": "9.6 Definitions and sources\nFor an externally maintained standard such as CRediT:\n\npreserve the canonical preferred label;\npreserve or accurately reproduce the canonical definition;\ncite the canonical source in source;\nkeep local implementation details in scope_note or note.\n\nDo not silently rewrite an external standard merely to fit local terminology.",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Controlled vocabularies</span>"
+    ]
+  },
+  {
+    "objectID": "08-vocabularies.html#hierarchy",
+    "href": "08-vocabularies.html#hierarchy",
+    "title": "9  Controlled vocabularies",
+    "section": "9.7 Hierarchy",
+    "text": "9.7 Hierarchy\nbroader_id allows a vocabulary to represent parent-child relationships.\nThis is useful for hierarchical concepts such as:\n\nsoil taxonomy;\ngeomorphic classifications;\norganizational hierarchies;\nmethod families.\n\nA flat vocabulary simply leaves broader_id empty/not applicable.",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Controlled vocabularies</span>"
+    ]
+  },
+  {
+    "objectID": "08-vocabularies.html#lifecycle",
+    "href": "08-vocabularies.html#lifecycle",
+    "title": "9  Controlled vocabularies",
+    "section": "9.8 Lifecycle",
+    "text": "9.8 Lifecycle\nTerms can evolve.\nUse status to distinguish:\nproposed\nactive\ndeprecated\nWhen a deprecated term has a direct successor, populate replaced_by.\nDo not delete a published vocabulary term merely because it is no longer preferred; historical data may still contain its code.",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Controlled vocabularies</span>"
+    ]
+  },
+  {
+    "objectID": "08-vocabularies.html#mapping-to-external-vocabularies",
+    "href": "08-vocabularies.html#mapping-to-external-vocabularies",
+    "title": "9  Controlled vocabularies",
+    "section": "9.9 Mapping to external vocabularies",
+    "text": "9.9 Mapping to external vocabularies\nexact_match_ids and close_match_ids allow local concepts to be linked to external identifiers.\nUse exact matches conservatively. “Looks similar” is not the same as semantic equivalence.",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Controlled vocabularies</span>"
+    ]
+  },
+  {
+    "objectID": "08-vocabularies.html#current-core-vocabularies",
+    "href": "08-vocabularies.html#current-core-vocabularies",
+    "title": "9  Controlled vocabularies",
+    "section": "9.10 Current core vocabularies",
+    "text": "9.10 Current core vocabularies\nThe registry currently anticipates at least:\nregistry-table-iid.csv\ncontent-domains.csv\nrelease-status.csv\nrole-schema.csv\ncredit-roles.csv\ncredit-contribution-degree.csv\nAdditional vocabularies should be created only when a controlled field actually requires them.",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Controlled vocabularies</span>"
+    ]
+  },
+  {
+    "objectID": "08-vocabularies.html#registry-table-iid.csv",
+    "href": "08-vocabularies.html#registry-table-iid.csv",
+    "title": "9  Controlled vocabularies",
+    "section": "9.11 registry-table-iid.csv",
+    "text": "9.11 registry-table-iid.csv\nThis vocabulary defines the standardized registry table identifiers.\nThe intended terms are:\npackages\nparties\nparty-roles\ndictionary\nvocab-schema\nThese correspond to the five canonical CSV artifacts in registry/.",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Controlled vocabularies</span>"
+    ]
+  },
+  {
+    "objectID": "08-vocabularies.html#creating-a-new-vocabulary",
+    "href": "08-vocabularies.html#creating-a-new-vocabulary",
+    "title": "9  Controlled vocabularies",
+    "section": "9.12 Creating a new vocabulary",
+    "text": "9.12 Creating a new vocabulary\n\nCopy the header from registry--vocab-schema.csv.\nChoose a descriptive kebab-case filename.\nDefine the legal term_code values.\nCreate stable concept_iid values.\nAdd preferred labels and definitions.\nRecord the source.\nAdd hierarchy/mappings only when supported.\nReference the vocabulary from the relevant dictionary row using vocab_ref.\nUpdate validation if special conditional rules are required.\nReview the vocabulary before it becomes authoritative.",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Controlled vocabularies</span>"
+    ]
+  },
+  {
+    "objectID": "09-identifiers-releases-manifests.html",
+    "href": "09-identifiers-releases-manifests.html",
+    "title": "10  Identifiers, releases, paths, and manifests",
+    "section": "",
+    "text": "10.1 Two kinds of identifiers",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Identifiers, releases, paths, and manifests</span>"
+    ]
+  },
+  {
+    "objectID": "09-identifiers-releases-manifests.html#two-kinds-of-identifiers",
+    "href": "09-identifiers-releases-manifests.html#two-kinds-of-identifiers",
+    "title": "10  Identifiers, releases, paths, and manifests",
+    "section": "",
+    "text": "Opaque IDs\nOpaque *_id fields are primarily for machine relationships.\nThe target conventions are:\ndataset_id        UUIDv4\nparty_id          UUIDv4\nrole_assignment_id UUIDv4\nrelease_id        UUIDv7\nUUID versions are implementation choices documented by the standard; the UUID type does not belong in the column name.\n\n\nHuman-readable IIDs\nHuman-readable immutable identifiers use the _iid suffix.\nExamples:\nds_iid     = blm-aim\nparty_iid  = njelinski\nIIDs use lowercase kebab-case and should remain stable.",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Identifiers, releases, paths, and manifests</span>"
+    ]
+  },
+  {
+    "objectID": "09-identifiers-releases-manifests.html#why-both",
+    "href": "09-identifiers-releases-manifests.html#why-both",
+    "title": "10  Identifiers, releases, paths, and manifests",
+    "section": "10.2 Why both?",
+    "text": "10.2 Why both?\nOpaque IDs are robust relationship keys.\nReadable IIDs are easier for humans to navigate, type, search, and recognize.\nThe registry intentionally uses both rather than forcing one identifier to do both jobs.",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Identifiers, releases, paths, and manifests</span>"
+    ]
+  },
+  {
+    "objectID": "09-identifiers-releases-manifests.html#release-slugs",
+    "href": "09-identifiers-releases-manifests.html#release-slugs",
+    "title": "10  Identifiers, releases, paths, and manifests",
+    "section": "10.3 Release slugs",
+    "text": "10.3 Release slugs\nA release slug combines:\n\ndataset IID;\ningest date;\nrelease sequence.\n\nPattern:\n{ds_iid}--ing{YYYYMMDD}--r{NNN}\nExample:\nblm-aim--ing20260914--r003\nThe double dash separates semantic components. Internal word separators use a single hyphen.",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Identifiers, releases, paths, and manifests</span>"
+    ]
+  },
+  {
+    "objectID": "09-identifiers-releases-manifests.html#release-sequence",
+    "href": "09-identifiers-releases-manifests.html#release-sequence",
+    "title": "10  Identifiers, releases, paths, and manifests",
+    "section": "10.4 Release sequence",
+    "text": "10.4 Release sequence\nr001, r002, etc. are local release counters.\nThey are not intended to reproduce a source repository’s version numbering. Source versions belong in the relevant repository/version fields.",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Identifiers, releases, paths, and manifests</span>"
+    ]
+  },
+  {
+    "objectID": "09-identifiers-releases-manifests.html#uuidv7-release-ids",
+    "href": "09-identifiers-releases-manifests.html#uuidv7-release-ids",
+    "title": "10  Identifiers, releases, paths, and manifests",
+    "section": "10.5 UUIDv7 release IDs",
+    "text": "10.5 UUIDv7 release IDs\nUUIDv7 provides a time-sortable identifier.\nThe current minting approach embeds the delivery/ingest day in the UUIDv7 timestamp. The readable release slug remains the authoritative human sequence, especially when multiple releases are registered on the same day.",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Identifiers, releases, paths, and manifests</span>"
+    ]
+  },
+  {
+    "objectID": "09-identifiers-releases-manifests.html#project-relative-paths",
+    "href": "09-identifiers-releases-manifests.html#project-relative-paths",
+    "title": "10  Identifiers, releases, paths, and manifests",
+    "section": "10.6 Project-relative paths",
+    "text": "10.6 Project-relative paths\nPaths recorded in registry metadata should be:\n\nrelative to the project root;\nPOSIX-style with /;\nindependent of a particular user’s workstation.\n\nGood:\ndata/blm-aim/blm-aim--ing20260914--r003/blm-aim--ing20260914--r003.sha256\nBad:\n/Users/nic/Desktop/project/data/...\nC:\\Users\\someone\\project\\data\\...\nAbsolute local paths make a registry non-portable.",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Identifiers, releases, paths, and manifests</span>"
+    ]
+  },
+  {
+    "objectID": "09-identifiers-releases-manifests.html#raw-release-layout",
+    "href": "09-identifiers-releases-manifests.html#raw-release-layout",
+    "title": "10  Identifiers, releases, paths, and manifests",
+    "section": "10.7 Raw release layout",
+    "text": "10.7 Raw release layout\nRecommended layout:\ndata/\n└── blm-aim/\n    └── blm-aim--ing20260914--r003/\n        ├── raw/\n        ├── extracted/\n        ├── reference/\n        └── blm-aim--ing20260914--r003.sha256",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Identifiers, releases, paths, and manifests</span>"
+    ]
+  },
+  {
+    "objectID": "09-identifiers-releases-manifests.html#sha-256-manifest",
+    "href": "09-identifiers-releases-manifests.html#sha-256-manifest",
+    "title": "10  Identifiers, releases, paths, and manifests",
+    "section": "10.8 SHA-256 manifest",
+    "text": "10.8 SHA-256 manifest\nThe manifest contains one deterministic line per included file:\n&lt;sha256&gt;  &lt;relative/path/inside/raw&gt;\nThe entries are sorted by path.\nA cryptographic hash changes when file content changes, making the manifest a strong way to detect whether a supposedly identical release has been altered.",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Identifiers, releases, paths, and manifests</span>"
+    ]
+  },
+  {
+    "objectID": "09-identifiers-releases-manifests.html#what-the-integrity-fields-mean",
+    "href": "09-identifiers-releases-manifests.html#what-the-integrity-fields-mean",
+    "title": "10  Identifiers, releases, paths, and manifests",
+    "section": "10.9 What the integrity fields mean",
+    "text": "10.9 What the integrity fields mean\n\nfile_manifest_path\nWhere the manifest is located, relative to the project root.\n\n\nmanifest_sha256\nSHA-256 digest of the manifest itself.\nIf two parties have the same manifest digest, the manifest contents are byte-for-byte identical.\n\n\nfile_count\nNumber of files represented.\n\n\ntotal_bytes\nCombined byte size of the represented files.",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Identifiers, releases, paths, and manifests</span>"
+    ]
+  },
+  {
+    "objectID": "09-identifiers-releases-manifests.html#what-a-manifest-does-not-prove",
+    "href": "09-identifiers-releases-manifests.html#what-a-manifest-does-not-prove",
+    "title": "10  Identifiers, releases, paths, and manifests",
+    "section": "10.10 What a manifest does not prove",
+    "text": "10.10 What a manifest does not prove\nA manifest proves byte identity, not scientific correctness.\nIt does not establish that:\n\nthe source was authoritative;\nthe files are complete;\nthe observations are accurate;\nthe license is correct;\nthe extraction was scientifically appropriate.\n\nThose questions require provenance and review.",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Identifiers, releases, paths, and manifests</span>"
+    ]
+  },
+  {
+    "objectID": "09-identifiers-releases-manifests.html#verify-before-transforming",
+    "href": "09-identifiers-releases-manifests.html#verify-before-transforming",
+    "title": "10  Identifiers, releases, paths, and manifests",
+    "section": "10.11 Verify before transforming",
+    "text": "10.11 Verify before transforming\nWhen possible:\n\nacquire the release;\nfreeze it under raw/;\ncreate the manifest;\nregister integrity metadata;\nonly then begin extraction or transformation.\n\nThis sequence preserves a defensible baseline.",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Identifiers, releases, paths, and manifests</span>"
+    ]
+  },
+  {
+    "objectID": "10-registering-a-dataset.html",
+    "href": "10-registering-a-dataset.html",
+    "title": "11  Registering a dataset",
+    "section": "",
+    "text": "11.1 Before you begin\nGather everything that came with the dataset:\nDo not start by filling cells from memory.",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Registering a dataset</span>"
+    ]
+  },
+  {
+    "objectID": "10-registering-a-dataset.html#before-you-begin",
+    "href": "10-registering-a-dataset.html#before-you-begin",
+    "title": "11  Registering a dataset",
+    "section": "",
+    "text": "raw files;\nREADME files;\nmetadata exports;\ndatabase dictionaries;\nsource URLs;\ncitations;\nemails or handoff notes that contain provenance;\nlicenses or data-use conditions;\ndocumentation naming contributors or organizations.",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Registering a dataset</span>"
+    ]
+  },
+  {
+    "objectID": "10-registering-a-dataset.html#step-1-decide-whether-this-is-a-new-dataset-or-a-new-release",
+    "href": "10-registering-a-dataset.html#step-1-decide-whether-this-is-a-new-dataset-or-a-new-release",
+    "title": "11  Registering a dataset",
+    "section": "11.2 Step 1: decide whether this is a new dataset or a new release",
+    "text": "11.2 Step 1: decide whether this is a new dataset or a new release\nAsk:\n\nDoes this acquisition represent a new conceptual data resource, or another snapshot/version of a dataset already registered?\n\nIf new, mint a new dataset identity.\nIf it is another release, reuse the existing dataset_id and ds_iid.\nWhen uncertain, document the uncertainty before minting duplicate concepts.",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Registering a dataset</span>"
+    ]
+  },
+  {
+    "objectID": "10-registering-a-dataset.html#step-2-mint-identifiers",
+    "href": "10-registering-a-dataset.html#step-2-mint-identifiers",
+    "title": "11  Registering a dataset",
+    "section": "11.3 Step 2: mint identifiers",
+    "text": "11.3 Step 2: mint identifiers\nFor a new dataset:\npython scripts/mint_ids.py dataset my-dataset\nFor a release:\npython scripts/mint_ids.py release   my-dataset   &lt;existing-dataset-id&gt;   --ingest 2026-09-15   --rev 1\nFor a new party:\npython scripts/mint_ids.py party jane-smith\nDo not ask an LLM to invent UUIDs in prose when the project script is available.",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Registering a dataset</span>"
+    ]
+  },
+  {
+    "objectID": "10-registering-a-dataset.html#step-3-create-the-release-directory",
+    "href": "10-registering-a-dataset.html#step-3-create-the-release-directory",
+    "title": "11  Registering a dataset",
+    "section": "11.4 Step 3: create the release directory",
+    "text": "11.4 Step 3: create the release directory\nCreate:\ndata/&lt;ds_iid&gt;/&lt;release_slug&gt;/raw/\nPlace an unchanged copy of the acquired release in raw/.\nPreserve source filenames unless there is a compelling archival reason to wrap the delivery in another container. Renaming raw files can make later source comparison harder.",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Registering a dataset</span>"
+    ]
+  },
+  {
+    "objectID": "10-registering-a-dataset.html#step-4-generate-the-manifest",
+    "href": "10-registering-a-dataset.html#step-4-generate-the-manifest",
+    "title": "11  Registering a dataset",
+    "section": "11.5 Step 4: generate the manifest",
+    "text": "11.5 Step 4: generate the manifest\nRun the project manifest tool.\nFor example:\npython scripts/manifest.py   data/&lt;ds_iid&gt;/&lt;release_slug&gt;/raw\nRecord the generated integrity fields in the package row.",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Registering a dataset</span>"
+    ]
+  },
+  {
+    "objectID": "10-registering-a-dataset.html#step-5-draft-the-packages-row",
+    "href": "10-registering-a-dataset.html#step-5-draft-the-packages-row",
+    "title": "11  Registering a dataset",
+    "section": "11.6 Step 5: draft the packages row",
+    "text": "11.6 Step 5: draft the packages row\nUse source evidence to fill:\n\ndescription;\nprovenance;\nsource identifiers;\ndates;\ngeographic coverage;\nrights;\nmethods;\nprocessing;\nlineage;\nintegrity;\nstatus.\n\nUse the dictionary while drafting. Do not assume a field’s meaning from its name alone.",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Registering a dataset</span>"
+    ]
+  },
+  {
+    "objectID": "10-registering-a-dataset.html#step-6-register-parties",
+    "href": "10-registering-a-dataset.html#step-6-register-parties",
+    "title": "11  Registering a dataset",
+    "section": "11.7 Step 6: register parties",
+    "text": "11.7 Step 6: register parties\nIdentify people and organizations that need stable references.\nBefore creating a new party, search registry--parties.csv for an existing record.\nAdd only identity information supported by evidence.",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Registering a dataset</span>"
+    ]
+  },
+  {
+    "objectID": "10-registering-a-dataset.html#step-7-assign-roles",
+    "href": "10-registering-a-dataset.html#step-7-assign-roles",
+    "title": "11  Registering a dataset",
+    "section": "11.8 Step 7: assign roles",
+    "text": "11.8 Step 7: assign roles\nFor each contributor relationship:\n\ndetermine dataset-level or release-level scope;\nchoose the role schema;\nchoose one valid role code;\ncreate one role row;\noptionally record degree and evidence.\n\nDo not compress several roles into one cell.",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Registering a dataset</span>"
+    ]
+  },
+  {
+    "objectID": "10-registering-a-dataset.html#step-8-run-validation",
+    "href": "10-registering-a-dataset.html#step-8-run-validation",
+    "title": "11  Registering a dataset",
+    "section": "11.9 Step 8: run validation",
+    "text": "11.9 Step 8: run validation\nRun:\npython scripts/validate_registry.py\nFix machine-detectable errors before requesting human review.",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Registering a dataset</span>"
+    ]
+  },
+  {
+    "objectID": "10-registering-a-dataset.html#step-9-review-against-the-source",
+    "href": "10-registering-a-dataset.html#step-9-review-against-the-source",
+    "title": "11  Registering a dataset",
+    "section": "11.10 Step 9: review against the source",
+    "text": "11.10 Step 9: review against the source\nA second pass should verify:\n\nidentity;\nrelease/dataset distinction;\ndates;\nprovenance;\nrights;\ncitations;\ncontributors;\nuncertain values;\nmanifest information.",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Registering a dataset</span>"
+    ]
+  },
+  {
+    "objectID": "10-registering-a-dataset.html#step-10-commit-the-registration",
+    "href": "10-registering-a-dataset.html#step-10-commit-the-registration",
+    "title": "11  Registering a dataset",
+    "section": "11.11 Step 10: commit the registration",
+    "text": "11.11 Step 10: commit the registration\nCommit the registry changes, vocab changes if any, manifests, and any new scripts or documentation together when they represent one logical registration event.\nA useful commit message is specific:\nRegister BLM AIM release ing20260915 r003",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Registering a dataset</span>"
+    ]
+  },
+  {
+    "objectID": "10-registering-a-dataset.html#registration-is-not-harmonization",
+    "href": "10-registering-a-dataset.html#registration-is-not-harmonization",
+    "title": "11  Registering a dataset",
+    "section": "11.12 Registration is not harmonization",
+    "text": "11.12 Registration is not harmonization\nDo not delay registration until scientific cleaning is complete.\nThe registry should capture the acquisition before the messy work of schema harmonization begins. Later processing can be documented incrementally while preserving the original source context.",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Registering a dataset</span>"
+    ]
+  },
+  {
+    "objectID": "11-llm-assisted-registration.html",
+    "href": "11-llm-assisted-registration.html",
+    "title": "12  LLM-assisted first-pass registration",
+    "section": "",
+    "text": "12.1 Core rule\nAn LLM-generated registry row is a draft until reviewed by a person.",
+    "crumbs": [
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>LLM-assisted first-pass registration</span>"
+    ]
+  },
+  {
+    "objectID": "11-llm-assisted-registration.html#core-rule",
+    "href": "11-llm-assisted-registration.html#core-rule",
+    "title": "12  LLM-assisted first-pass registration",
+    "section": "",
+    "text": "Extract, infer cautiously, and flag uncertainty. Never fabricate missing metadata to make the row look complete.",
+    "crumbs": [
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>LLM-assisted first-pass registration</span>"
+    ]
+  },
+  {
+    "objectID": "11-llm-assisted-registration.html#what-an-llm-should-read-first",
+    "href": "11-llm-assisted-registration.html#what-an-llm-should-read-first",
+    "title": "12  LLM-assisted first-pass registration",
+    "section": "12.2 What an LLM should read first",
+    "text": "12.2 What an LLM should read first\nBefore analyzing a dataset, provide or direct the agent to:\n\nregistry/registry--dictionary.csv;\nregistry/registry--packages.csv;\nregistry/registry--parties.csv;\nregistry/registry--party-roles.csv;\nregistry/registry--vocab-schema.csv;\nall relevant files in vocab/;\nthis documentation;\nsource documentation supplied with the dataset.\n\nThis prevents the model from inventing a parallel schema.",
+    "crumbs": [
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>LLM-assisted first-pass registration</span>"
+    ]
+  },
+  {
+    "objectID": "11-llm-assisted-registration.html#uploadchat-prompt",
+    "href": "11-llm-assisted-registration.html#uploadchat-prompt",
+    "title": "12  LLM-assisted first-pass registration",
+    "section": "12.3 Upload/chat prompt",
+    "text": "12.3 Upload/chat prompt\nUse this when working in ChatGPT, Claude, Gemini, or another chat interface where you are uploading the dataset documentation.\nI am registering a dataset using our lab's standardized data registry.\n\nAttached are:\n1. the source dataset files and/or documentation available to me;\n2. registry--dictionary.csv;\n3. the current packages, parties, and party-roles CSVs;\n4. the relevant vocabularies.\n\nYour job is to prepare a FIRST-PASS registration for human review.\n\nRules:\n- Treat registry--dictionary.csv as authoritative for field meaning and constraints.\n- Do not add, remove, rename, or reorder registry columns.\n- Do not invent facts that are not supported by the source material.\n- Distinguish explicitly among:\n  (a) values directly supported by source evidence,\n  (b) reasonable inferences,\n  (c) unknown or unresolved values.\n- Use our null semantics correctly: blank for not-yet-assessed during drafting,\n  nap for not applicable, and unk for applicable but unknown after review.\n- Use only legal vocabulary term_code values from the supplied vocab files.\n- For intentional multivalue cells, use an unpadded pipe: a|b|c.\n- Do not create a new dataset concept until you compare the acquisition with\n  existing packages rows and determine whether it is a new dataset or a new release.\n- Do not invent UUIDs. Tell me which identifiers need to be minted with the project script.\n- Do not modify raw source files.\n- Preserve source-provided citations, names, identifiers, dates, and rights language as faithfully as possible.\n- Flag conflicting evidence rather than silently choosing one source.\n- Search the existing parties table before proposing a new party.\n- For contributor roles, propose one row per role assertion and use an existing role schema/vocabulary.\n\nReturn:\nA. A short assessment: new dataset concept or new release, with reasoning.\nB. A proposed packages row in exact CSV column order.\nC. Proposed new parties, if any.\nD. Proposed party-role assertions, if supported.\nE. A list of unresolved questions / fields needing human review.\nF. A source-evidence table showing where the most important values came from.\nG. A list of any vocabulary terms or schema changes you think may be needed. Do not make those changes automatically.",
+    "crumbs": [
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>LLM-assisted first-pass registration</span>"
+    ]
+  },
+  {
+    "objectID": "11-llm-assisted-registration.html#in-repository-coding-agent-prompt",
+    "href": "11-llm-assisted-registration.html#in-repository-coding-agent-prompt",
+    "title": "12  LLM-assisted first-pass registration",
+    "section": "12.4 In-repository coding-agent prompt",
+    "text": "12.4 In-repository coding-agent prompt\nUse this with Codex, Claude Code, or another agent operating inside the project directory.\nYou are helping prepare a FIRST-PASS dataset registration in this repository.\n\nBefore making any changes:\n1. Read the documentation under docs/.\n2. Read registry/registry--dictionary.csv.\n3. Read all existing registry CSVs.\n4. Read registry/registry--vocab-schema.csv and all vocabularies in vocab/.\n5. Inspect the source dataset delivery and all accompanying documentation.\n6. Inspect the existing packages table to determine whether this is a new dataset\n   concept or a new release of an existing dataset.\n\nRules:\n- The registry dictionary is authoritative.\n- Never alter files under data/**/raw/.\n- Never silently modify registry schemas.\n- Never invent metadata.\n- Never invent IDs when a project script exists to mint them.\n- Use project-relative POSIX paths in registry fields.\n- Use legal vocabulary term_code values only.\n- One party-role row represents one role assertion.\n- Preserve uncertainty and conflicting evidence explicitly.\n- Make the smallest set of changes necessary for this one registration.\n- Do not \"clean up\" unrelated registry rows.\n\nWorkflow:\nA. Produce a written plan and identify whether this is a new dataset or release.\nB. Use scripts/mint_ids.py for IDs that genuinely need to be created.\nC. Create the standard data/&lt;ds_iid&gt;/&lt;release_slug&gt;/raw/ structure if needed,\n   but do not move/delete existing source material without explicit instruction.\nD. Generate the manifest with the project manifest tool.\nE. Draft/update the packages row.\nF. Add parties only if they are not already registered.\nG. Add one role row per supported role assertion.\nH. Run the registry validator.\nI. Show me a diff and a review report before considering the registration complete.\n\nReview report must include:\n- evidence used;\n- inferred values;\n- unresolved fields;\n- validation results;\n- any proposed vocabulary or schema changes;\n- anything you deliberately left untouched.",
+    "crumbs": [
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>LLM-assisted first-pass registration</span>"
+    ]
+  },
+  {
+    "objectID": "11-llm-assisted-registration.html#review-prompt",
+    "href": "11-llm-assisted-registration.html#review-prompt",
+    "title": "12  LLM-assisted first-pass registration",
+    "section": "12.5 Review prompt",
+    "text": "12.5 Review prompt\nA second LLM pass can be useful if it is framed as adversarial review rather than rewriting.\nReview this proposed registry change against the source materials and the registry dictionary.\n\nDo NOT improve prose merely for style.\n\nLook specifically for:\n- unsupported claims;\n- invented dates, citations, rights, identifiers, coordinates, or organizations;\n- confusion between dataset identity and release identity;\n- invalid null tokens;\n- invalid vocabulary values;\n- multivalue cells using the wrong delimiter;\n- contributor roles that are inferred without evidence;\n- duplicate parties;\n- inconsistent source names;\n- lineage claims that are not actually derivational;\n- absolute local file paths;\n- manifest fields that appear hand-entered rather than script-generated;\n- fields whose value conflicts with source documentation.\n\nReturn:\n1. errors that must be corrected;\n2. uncertainties needing human judgment;\n3. machine-validation issues;\n4. fields that appear well supported;\n5. a concise recommendation: accept, revise, or reject the draft.",
+    "crumbs": [
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>LLM-assisted first-pass registration</span>"
+    ]
+  },
+  {
+    "objectID": "11-llm-assisted-registration.html#evidence-discipline",
+    "href": "11-llm-assisted-registration.html#evidence-discipline",
+    "title": "12  LLM-assisted first-pass registration",
+    "section": "12.6 Evidence discipline",
+    "text": "12.6 Evidence discipline\nA strong first-pass workflow should preserve a small evidence trail.\nFor important fields, the LLM should say where the value came from:\n\n\n\n\n\n\n\n\n\nRegistry field\nProposed value\nEvidence\nConfidence\n\n\n\n\nsource_org\n…\nsource README\ndirect\n\n\npublished_date\n…\nrepository page\ndirect\n\n\ncoverage_end\n…\ninferred from latest observation date\ninferred\n\n\nlicense\nunk\nno license found\nunresolved\n\n\n\nThis is especially helpful during workshop registration because it turns review into verification rather than reconstruction.",
+    "crumbs": [
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>LLM-assisted first-pass registration</span>"
+    ]
+  },
+  {
+    "objectID": "11-llm-assisted-registration.html#what-llms-are-good-at-here",
+    "href": "11-llm-assisted-registration.html#what-llms-are-good-at-here",
+    "title": "12  LLM-assisted first-pass registration",
+    "section": "12.7 What LLMs are good at here",
+    "text": "12.7 What LLMs are good at here\nLLMs are well suited to:\n\nreading heterogeneous documentation;\nconsolidating repeated metadata;\nlocating candidate citations;\nidentifying names and organizations;\nsummarizing methods;\ncomparing a proposed row to the dictionary;\nspotting missing fields;\ngenerating review questions.",
+    "crumbs": [
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>LLM-assisted first-pass registration</span>"
+    ]
+  },
+  {
+    "objectID": "11-llm-assisted-registration.html#what-requires-caution",
+    "href": "11-llm-assisted-registration.html#what-requires-caution",
+    "title": "12  LLM-assisted first-pass registration",
+    "section": "12.8 What requires caution",
+    "text": "12.8 What requires caution\nLLMs commonly overreach by:\n\nfilling plausible dates;\ntreating a website as a formal citation;\nassuming an open website implies an open license;\ninferring organizational affiliation from context;\nconfusing data publication date with observation dates;\ntreating any earlier release as direct lineage;\nselecting contributor roles from job titles rather than documented contributions.\n\nThe prompt should explicitly discourage these behaviors.",
+    "crumbs": [
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>LLM-assisted first-pass registration</span>"
+    ]
+  },
+  {
+    "objectID": "11-llm-assisted-registration.html#final-rule",
+    "href": "11-llm-assisted-registration.html#final-rule",
+    "title": "12  LLM-assisted first-pass registration",
+    "section": "12.9 Final rule",
+    "text": "12.9 Final rule\nAn LLM can produce a useful first draft.\nA human curator is responsible for deciding that a release is registered.",
+    "crumbs": [
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>LLM-assisted first-pass registration</span>"
+    ]
+  },
+  {
+    "objectID": "12-validation-review.html",
+    "href": "12-validation-review.html",
+    "title": "13  Validation and review",
+    "section": "",
+    "text": "13.1 Machine validation\nThe validator should eventually check at least:",
+    "crumbs": [
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Validation and review</span>"
+    ]
+  },
+  {
+    "objectID": "12-validation-review.html#machine-validation",
+    "href": "12-validation-review.html#machine-validation",
+    "title": "13  Validation and review",
+    "section": "",
+    "text": "Structure\n\nexact header order against the dictionary;\nno missing or extra columns;\nUTF-8 encoding;\nexpected CSV dialect;\nno duplicated primary identifiers.\n\n\n\nRequiredness\n\nrequired fields populated;\nillegal null tokens rejected;\nconditional fields checked where machine rules are possible.\n\n\n\nPatterns and types\n\nUUID validity;\nIID syntax;\nrelease-slug syntax;\nISO date formatting;\nSHA-256 length/characters;\nintegers/floats parsed correctly.\n\n\n\nControlled values\n\nenum values belong to the inline allowed list;\nvocabulary values exist as active or historically valid term_code values;\nregistry table identifiers exist in registry-table-iid.csv.\n\n\n\nReferential integrity\n\nparty-role dataset_id exists;\nrelease-specific role release_id exists and belongs to the stated dataset;\nparty_id exists;\nbroader_id, related_ids, and replaced_by refer to valid concepts where applicable.\n\n\n\nFile integrity\n\nmanifest path exists;\nrecorded manifest path follows convention;\nmanifest hash matches;\noptional full manifest verification passes;\npaths are project-relative, not absolute.",
+    "crumbs": [
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Validation and review</span>"
+    ]
+  },
+  {
+    "objectID": "12-validation-review.html#conditional-role-validation",
+    "href": "12-validation-review.html#conditional-role-validation",
+    "title": "13  Validation and review",
+    "section": "13.2 Conditional role validation",
+    "text": "13.2 Conditional role validation\nParty roles require richer validation because the legal role_code depends on role_schema.\nExample:\nrole_schema=credit\nshould trigger validation against:\nvocab/credit-roles.csv\nand, if populated, contribution degree should be checked against:\nvocab/credit-contribution-degree.csv\nThis is a planned enhancement to the generic validator.",
+    "crumbs": [
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Validation and review</span>"
+    ]
+  },
+  {
+    "objectID": "12-validation-review.html#human-review",
+    "href": "12-validation-review.html#human-review",
+    "title": "13  Validation and review",
+    "section": "13.3 Human review",
+    "text": "13.3 Human review\nHuman review must consider things a validator cannot reliably determine.\n\nIdentity review\n\nIs this really a new dataset?\nIs the party already registered under another name?\nDoes this release overlap but not descend from an earlier release?\n\n\n\nProvenance review\n\nIs the source organization correct?\nIs the citation faithful to the source?\nDid a collaborator provide files that originated elsewhere?\n\n\n\nRights review\n\nIs the stated license actually attached to this dataset?\nAre there redistribution restrictions?\nDoes an agency permission apply only to certain subsets?\n\n\n\nContributor review\n\nIs the CRediT role supported by evidence?\nIs the role dataset-level or release-specific?\nAre field collectors and curators being made visible rather than erased?\n\n\n\nScientific review\n\nDoes the abstract accurately describe what is in the files?\nAre spatial and temporal coverage statements defensible?\nIs the processing summary technically accurate?",
+    "crumbs": [
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Validation and review</span>"
+    ]
+  },
+  {
+    "objectID": "12-validation-review.html#suggested-review-checklist",
+    "href": "12-validation-review.html#suggested-review-checklist",
+    "title": "13  Validation and review",
+    "section": "13.4 Suggested review checklist",
+    "text": "13.4 Suggested review checklist\nBefore changing release_status to a completed/registered state:\n\nDataset vs. release decision reviewed.\nRequired IDs minted by the project script.\nRaw acquisition preserved unchanged.\nManifest generated.\nRequired package fields reviewed.\nSource citation/provenance reviewed.\nRights reviewed.\nParties deduplicated.\nParty roles supported by evidence.\nControlled values validated.\nPaths are portable/project-relative.\nUncertainties documented.\nValidator passes.\nAnother person or a deliberate second-pass review has inspected the entry.",
+    "crumbs": [
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Validation and review</span>"
+    ]
+  },
+  {
+    "objectID": "12-validation-review.html#errors-vs.-warnings",
+    "href": "12-validation-review.html#errors-vs.-warnings",
+    "title": "13  Validation and review",
+    "section": "13.5 Errors vs. warnings",
+    "text": "13.5 Errors vs. warnings\nValidators should distinguish:\n\nErrors\nConditions that violate the registry standard.\nExamples:\n\nmissing required ID;\ninvalid controlled value;\nbroken foreign key;\nmalformed release slug;\nheader inconsistent with dictionary.\n\n\n\nWarnings\nConditions that may be valid but deserve attention.\nExamples:\n\na release has no DOI;\na rights field is unk;\na party lacks ORCID;\ntemporal coverage is absent because the dataset is timeless/reference-only;\na release has no public landing page.\n\nDo not turn every incomplete metadata field into an error; that encourages invented values.",
+    "crumbs": [
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Validation and review</span>"
+    ]
+  },
+  {
+    "objectID": "13-governance-versioning.html",
+    "href": "13-governance-versioning.html",
+    "title": "14  Governance and versioning",
+    "section": "",
+    "text": "14.1 Separate data changes from schema changes\nAdding a new package row is a data change.\nAdding a new column to registry--packages.csv is a schema change.\nThose should not be treated as equivalent Git edits.\nSchema changes require broader review because they affect every project using the standard.",
+    "crumbs": [
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Governance and versioning</span>"
+    ]
+  },
+  {
+    "objectID": "13-governance-versioning.html#proposed-change-workflow",
+    "href": "13-governance-versioning.html#proposed-change-workflow",
+    "title": "14  Governance and versioning",
+    "section": "14.2 Proposed change workflow",
+    "text": "14.2 Proposed change workflow\nFor a schema change:\n\ndescribe the problem;\nexplain why existing fields/vocabularies cannot represent it;\npropose the smallest change;\nupdate the dictionary;\nupdate the relevant physical CSV header;\nupdate vocabularies;\nupdate validation;\ndocument migration requirements;\ntest against existing project registries;\nmerge only after review.",
+    "crumbs": [
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Governance and versioning</span>"
+    ]
+  },
+  {
+    "objectID": "13-governance-versioning.html#preserve-backward-interpretability",
+    "href": "13-governance-versioning.html#preserve-backward-interpretability",
+    "title": "14  Governance and versioning",
+    "section": "14.3 Preserve backward interpretability",
+    "text": "14.3 Preserve backward interpretability\nDo not silently delete fields or vocabulary terms that have already been used.\nIf a concept is no longer preferred:\n\ndeprecate it;\nkeep its historical definition;\npoint to a replacement when appropriate.\n\nIf a registry field must be renamed or removed, document the migration and consider a schema version boundary.",
+    "crumbs": [
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Governance and versioning</span>"
+    ]
+  },
+  {
+    "objectID": "13-governance-versioning.html#versioning-the-registry-standard",
+    "href": "13-governance-versioning.html#versioning-the-registry-standard",
+    "title": "14  Governance and versioning",
+    "section": "14.4 Versioning the registry standard",
+    "text": "14.4 Versioning the registry standard\nThe lab should tag releases of the template repository.\nA practical pattern could be:\nv0.x   active design / workshop phase\nv1.0   first stable registry standard\nv1.x   backward-compatible additions/clarifications\nv2.0   intentionally breaking schema changes\nThe exact versioning policy can be formalized later, but tagged states are valuable because project registries can say which template version they implement.",
+    "crumbs": [
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Governance and versioning</span>"
+    ]
+  },
+  {
+    "objectID": "13-governance-versioning.html#git-workflow",
+    "href": "13-governance-versioning.html#git-workflow",
+    "title": "14  Governance and versioning",
+    "section": "14.5 Git workflow",
+    "text": "14.5 Git workflow\nA lightweight shared workflow is sufficient:\n\ncreate a branch for non-trivial schema/vocab changes;\nmake changes in small logical commits;\nrun validation;\nopen a pull request;\nreview both the machine-readable change and documentation;\nmerge after agreement.\n\nRoutine package registrations may use a simpler process depending on the project.",
+    "crumbs": [
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Governance and versioning</span>"
+    ]
+  },
+  {
+    "objectID": "13-governance-versioning.html#vocabulary-governance",
+    "href": "13-governance-versioning.html#vocabulary-governance",
+    "title": "14  Governance and versioning",
+    "section": "14.6 Vocabulary governance",
+    "text": "14.6 Vocabulary governance\nA vocabulary change should distinguish:\n\nNew concept\nAdd a new concept with a stable ID and source.\n\n\nLabel refinement\nIf meaning is unchanged, update the preferred/alternate label and modification date carefully.\n\n\nMeaning change\nDo not reuse an existing code for a different concept. Create a new concept and deprecate the old one if necessary.\n\n\nExternal standard update\nDocument which version/state of the external standard is being followed and preserve the source.",
+    "crumbs": [
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Governance and versioning</span>"
+    ]
+  },
+  {
+    "objectID": "13-governance-versioning.html#roles-and-attribution",
+    "href": "13-governance-versioning.html#roles-and-attribution",
+    "title": "14  Governance and versioning",
+    "section": "14.7 Roles and attribution",
+    "text": "14.7 Roles and attribution\nContributor metadata can be sensitive in a social sense even when not legally sensitive.\nDo not assign CRediT roles merely to reward or rank people. Record documented contributions. CRediT itself is a contribution taxonomy and is not intended to define authorship.",
+    "crumbs": [
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Governance and versioning</span>"
+    ]
+  },
+  {
+    "objectID": "13-governance-versioning.html#auditability",
+    "href": "13-governance-versioning.html#auditability",
+    "title": "14  Governance and versioning",
+    "section": "14.8 Auditability",
+    "text": "14.8 Auditability\nGit history, manifests, stable identifiers, and source evidence together create an audit trail.\nThe goal is not bureaucracy. The goal is to ensure that a future researcher can reconstruct:\n\nwhat entered the project;\nwhen;\nfrom where;\nin what exact form;\nunder what conditions;\nwith whose contributions;\nand how the metadata evolved.",
+    "crumbs": [
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Governance and versioning</span>"
+    ]
+  },
+  {
+    "objectID": "14-scripts-automation.html",
+    "href": "14-scripts-automation.html",
+    "title": "15  Scripts and automation",
+    "section": "",
+    "text": "15.1 Core generic tools",
+    "crumbs": [
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Scripts and automation</span>"
+    ]
+  },
+  {
+    "objectID": "14-scripts-automation.html#core-generic-tools",
+    "href": "14-scripts-automation.html#core-generic-tools",
+    "title": "15  Scripts and automation",
+    "section": "",
+    "text": "mint_ids.py\nPurpose:\n\nmint dataset IDs/IIDs;\nmint release IDs/slugs;\nmint party IDs/IIDs.\n\nTypical use:\npython scripts/mint_ids.py dataset kenai-wetlands\npython scripts/mint_ids.py release kenai-wetlands &lt;dataset-id&gt; --ingest 2026-09-15 --rev 1\npython scripts/mint_ids.py party jane-smith\nIDs should be minted by the tool rather than typed manually.\n\n\nmanifest.py\nPurpose:\n\nwalk a frozen raw release;\ncompute SHA-256 for each file;\nproduce a deterministic manifest;\nreport manifest hash, file count, and bytes.\n\nThe full production version should record project-relative paths and support verification.\n\n\nvalidate_registry.py\nPurpose:\n\ncompare CSV headers to the dictionary;\nenforce required fields;\nvalidate enums and vocabularies;\ncheck foreign keys;\nenforce path and identifier conventions;\neventually implement conditional role-schema validation.\n\nValidation should be run before registry changes are merged.",
+    "crumbs": [
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Scripts and automation</span>"
+    ]
+  },
+  {
+    "objectID": "14-scripts-automation.html#optionalsource-specific-tools",
+    "href": "14-scripts-automation.html#optionalsource-specific-tools",
+    "title": "15  Scripts and automation",
+    "section": "15.2 Optional/source-specific tools",
+    "text": "15.2 Optional/source-specific tools\nThe AKSDB work produced several useful utilities that should be treated as optional tooling rather than mandatory parts of the registry standard.\n\ninventory.py\nProfiles fields in extracted CSVs and creates a machine-generated field inventory with type inference and quality flags.\nUseful when a project must harmonize large heterogeneous tabular deliveries.\n\n\nextract_mdb.py\nReproducibly extracts Microsoft Access .mdb/.accdb deliveries with mdbtools, capturing source tables and schema.\nUseful only for projects that receive Access databases.\n\n\nextract_props.py\nRecovers Access field descriptions, properties, and query definitions that are not exposed by basic table export.\n\n\nconvert_map.py\nConverts legacy wide mapping workbooks into a normalized long-format mapping table.",
+    "crumbs": [
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Scripts and automation</span>"
+    ]
+  },
+  {
+    "objectID": "14-scripts-automation.html#core-vs.-optional-philosophy",
+    "href": "14-scripts-automation.html#core-vs.-optional-philosophy",
+    "title": "15  Scripts and automation",
+    "section": "15.3 Core vs. optional philosophy",
+    "text": "15.3 Core vs. optional philosophy\nThe lab standard should avoid requiring every project to inherit the full complexity of the most complicated project.\nA good boundary is:\ncore:\n    identity\n    packages\n    parties\n    roles\n    vocabularies\n    manifests\n    validation\n\noptional:\n    field inventories\n    database extraction\n    source-schema capture\n    harmonization maps\n    scientific schema validation",
+    "crumbs": [
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Scripts and automation</span>"
+    ]
+  },
+  {
+    "objectID": "14-scripts-automation.html#running-scripts-from-anywhere",
+    "href": "14-scripts-automation.html#running-scripts-from-anywhere",
+    "title": "15  Scripts and automation",
+    "section": "15.4 Running scripts from anywhere",
+    "text": "15.4 Running scripts from anywhere\nA mature template should include shared path-resolution logic so tools can locate the project root regardless of the current working directory.\nRegistry paths should always be written relative to the project root.",
+    "crumbs": [
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Scripts and automation</span>"
+    ]
+  },
+  {
+    "objectID": "14-scripts-automation.html#reproducibility",
+    "href": "14-scripts-automation.html#reproducibility",
+    "title": "15  Scripts and automation",
+    "section": "15.5 Reproducibility",
+    "text": "15.5 Reproducibility\nIf a manual transformation is repeated more than once, strongly consider turning it into a script.\nExamples:\n\nextracting tables;\nrenaming columns;\nfixing encodings;\ncreating manifests;\ngenerating inventories;\nvalidating vocabularies;\ncompiling reports.\n\nThe objective is not to automate every judgment. It is to automate repeatable operations so human attention can focus on judgment.",
+    "crumbs": [
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Scripts and automation</span>"
+    ]
+  },
+  {
+    "objectID": "15-worked-example.html",
+    "href": "15-worked-example.html",
+    "title": "16  Worked example",
+    "section": "",
+    "text": "16.1 Scenario\nA collaborator sends a folder:\nThe README says:\nA preliminary release is already registered under:",
+    "crumbs": [
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Worked example</span>"
+    ]
+  },
+  {
+    "objectID": "15-worked-example.html#scenario",
+    "href": "15-worked-example.html#scenario",
+    "title": "16  Worked example",
+    "section": "",
+    "text": "peat-depth-survey-2026/\n├── peat_depths.csv\n├── site_notes.docx\n└── README.txt\n\n\nthe data are from a 2026 Kenai Peninsula field campaign;\nJane Smith led field data collection;\nAlex Lee developed the sampling design;\nthe files are an updated delivery replacing a preliminary folder sent two months earlier;\nno DOI exists;\nredistribution is permitted within the collaborative project, but public release has not yet been approved.\n\n\ndataset_id = 3e...\nds_iid     = kenai-peat-depths",
+    "crumbs": [
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Worked example</span>"
+    ]
+  },
+  {
+    "objectID": "15-worked-example.html#step-1-dataset-or-release",
+    "href": "15-worked-example.html#step-1-dataset-or-release",
+    "title": "16  Worked example",
+    "section": "16.2 Step 1: dataset or release?",
+    "text": "16.2 Step 1: dataset or release?\nThis is not a new dataset concept.\nIt is an updated release of kenai-peat-depths.\nReuse:\ndataset_id = 3e...\nds_iid     = kenai-peat-depths\nMint a new release.",
+    "crumbs": [
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Worked example</span>"
+    ]
+  },
+  {
+    "objectID": "15-worked-example.html#step-2-mint-the-release",
+    "href": "15-worked-example.html#step-2-mint-the-release",
+    "title": "16  Worked example",
+    "section": "16.3 Step 2: mint the release",
+    "text": "16.3 Step 2: mint the release\npython scripts/mint_ids.py release   kenai-peat-depths   3e...   --ingest 2026-09-15   --rev 2\nSuppose the tool returns:\nrelease_id   = &lt;uuidv7&gt;\nrelease_slug = kenai-peat-depths--ing20260915--r002",
+    "crumbs": [
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Worked example</span>"
+    ]
+  },
+  {
+    "objectID": "15-worked-example.html#step-3-preserve-raw-files",
+    "href": "15-worked-example.html#step-3-preserve-raw-files",
+    "title": "16  Worked example",
+    "section": "16.4 Step 3: preserve raw files",
+    "text": "16.4 Step 3: preserve raw files\nCreate:\ndata/kenai-peat-depths/kenai-peat-depths--ing20260915--r002/raw/\nCopy the three supplied files into raw/ unchanged.",
+    "crumbs": [
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Worked example</span>"
+    ]
+  },
+  {
+    "objectID": "15-worked-example.html#step-4-generate-manifest",
+    "href": "15-worked-example.html#step-4-generate-manifest",
+    "title": "16  Worked example",
+    "section": "16.5 Step 4: generate manifest",
+    "text": "16.5 Step 4: generate manifest\nRun:\npython scripts/manifest.py   data/kenai-peat-depths/kenai-peat-depths--ing20260915--r002/raw\nRecord the generated:\n\nmanifest path;\nmanifest SHA-256;\nfile count;\ntotal bytes.",
+    "crumbs": [
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Worked example</span>"
+    ]
+  },
+  {
+    "objectID": "15-worked-example.html#step-5-package-metadata",
+    "href": "15-worked-example.html#step-5-package-metadata",
+    "title": "16  Worked example",
+    "section": "16.6 Step 5: package metadata",
+    "text": "16.6 Step 5: package metadata\nPotential values include:\ntitle:\nKenai Peninsula peat-depth field survey, 2026 updated delivery\n\npurpose:\nUpdated field delivery for peat-depth modeling and targeted sampling analysis.\n\nsource_org:\n&lt;collaborator organization, if documented&gt;\n\ndoi:\nnap\n\ncoverage_start:\n2026-...\n\ncoverage_end:\n2026-...\n\nintellectual_rights:\nCollaborative-project redistribution permitted; public release not yet approved.\n\nprocessing_summary:\nUpdated delivery superseding the preliminary 2026 handoff; no local transformations applied to raw files.\n\nrelease_status:\n&lt;appropriate current workflow term&gt;\nNotice that the rights statement is preserved as a condition rather than incorrectly converting it into an open license.",
+    "crumbs": [
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Worked example</span>"
+    ]
+  },
+  {
+    "objectID": "15-worked-example.html#step-6-parties",
+    "href": "15-worked-example.html#step-6-parties",
+    "title": "16  Worked example",
+    "section": "16.7 Step 6: parties",
+    "text": "16.7 Step 6: parties\nSearch the existing parties table for Jane Smith and Alex Lee.\nIf absent, create new party IDs/IIDs.\nDo not add job titles as permanent roles on their identity records.",
+    "crumbs": [
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Worked example</span>"
+    ]
+  },
+  {
+    "objectID": "15-worked-example.html#step-7-roles",
+    "href": "15-worked-example.html#step-7-roles",
+    "title": "16  Worked example",
+    "section": "16.8 Step 7: roles",
+    "text": "16.8 Step 7: roles\nIf using CRediT:\nJane’s field contribution supports:\nrole_schema = credit\nrole_code   = investigation\nAlex’s sampling-design contribution may support:\nrole_schema = credit\nrole_code   = methodology\nIf the README explicitly indicates Jane led the investigation role and multiple investigators exist:\ncontribution_degree = lead\nIf that ranking is not stated or needed, leave degree unassigned.\nCreate one row per role assertion.",
+    "crumbs": [
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Worked example</span>"
+    ]
+  },
+  {
+    "objectID": "15-worked-example.html#step-8-role-evidence",
+    "href": "15-worked-example.html#step-8-role-evidence",
+    "title": "16  Worked example",
+    "section": "16.9 Step 8: role evidence",
+    "text": "16.9 Step 8: role evidence\nA defensible record might use:\nrole_basis  = source-declared\nrole_source = data/kenai-peat-depths/.../raw/README.txt\nThis is preferable to assigning roles solely because a person’s job title sounds compatible with a CRediT role.",
+    "crumbs": [
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Worked example</span>"
+    ]
+  },
+  {
+    "objectID": "15-worked-example.html#step-9-review-uncertainties",
+    "href": "15-worked-example.html#step-9-review-uncertainties",
+    "title": "16  Worked example",
+    "section": "16.10 Step 9: review uncertainties",
+    "text": "16.10 Step 9: review uncertainties\nQuestions for human review might include:\n\nDoes the updated delivery fully supersede the preliminary release?\nWhat exact temporal coverage dates are present in the CSV?\nShould the dataset-level title remain stable across releases?\nIs the collaborator organization explicitly documented?\nShould rights be encoded as license=nap plus a detailed intellectual_rights statement?\nIs the preliminary release a direct upstream ancestor or merely an earlier snapshot?\n\nThese questions should be resolved explicitly rather than guessed.",
+    "crumbs": [
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Worked example</span>"
+    ]
+  },
+  {
+    "objectID": "15-worked-example.html#step-10-validate-and-commit",
+    "href": "15-worked-example.html#step-10-validate-and-commit",
+    "title": "16  Worked example",
+    "section": "16.11 Step 10: validate and commit",
+    "text": "16.11 Step 10: validate and commit\nRun validation, inspect the diff, and commit the registration.\nThe result is a release that can later be transformed and harmonized without losing the context of what originally entered the project.",
+    "crumbs": [
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Worked example</span>"
+    ]
+  },
+  {
+    "objectID": "16-template-readiness.html",
+    "href": "16-template-readiness.html",
+    "title": "17  Template readiness and remaining implementation work",
+    "section": "",
+    "text": "17.1 Architecture decisions already made\nThe intended standard is now:",
+    "crumbs": [
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Template readiness and remaining implementation work</span>"
+    ]
+  },
+  {
+    "objectID": "16-template-readiness.html#architecture-decisions-already-made",
+    "href": "16-template-readiness.html#architecture-decisions-already-made",
+    "title": "17  Template readiness and remaining implementation work",
+    "section": "",
+    "text": "no numeric prefixes on top-level directories;\nregistry/, vocab/, data/, scripts/, docs/;\nglossary moved to a separate repository;\nfive canonical registry CSV artifacts;\none common vocabulary schema;\ndictionary as the field-level specification for everything in registry/.",
+    "crumbs": [
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Template readiness and remaining implementation work</span>"
+    ]
+  },
+  {
+    "objectID": "16-template-readiness.html#reportedcreated-changes",
+    "href": "16-template-readiness.html#reportedcreated-changes",
+    "title": "17  Template readiness and remaining implementation work",
+    "section": "17.2 Reported/created changes",
+    "text": "17.2 Reported/created changes\nThese have been discussed or created during the registry design process:\n\nRemove numeric prefixes from registry/vocab directories.\nRename table-iid.csv to registry-table-iid.csv.\nCreate registry--vocab-schema.csv as a header-only schema file.\nDefine a rich common vocabulary structure.\nCreate draft CRediT role vocabulary.\nCreate draft CRediT contribution-degree vocabulary.\nDecide to maintain the glossary in a separate repository.\nDecide that one party-role row should represent one role assertion.\n\n\n\n\n\n\n\nNote\n\n\n\nItems marked complete above reflect design decisions and generated artifacts from the workshop preparation. Confirm that the corresponding files have actually been committed to the local repository before treating them as implemented.",
+    "crumbs": [
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Template readiness and remaining implementation work</span>"
+    ]
+  },
+  {
+    "objectID": "16-template-readiness.html#registrydictionary-updates-still-needed",
+    "href": "16-template-readiness.html#registrydictionary-updates-still-needed",
+    "title": "17  Template readiness and remaining implementation work",
+    "section": "17.3 Registry/dictionary updates still needed",
+    "text": "17.3 Registry/dictionary updates still needed\n\nMerge the 16 vocabulary-schema dictionary rows into the canonical registry--dictionary.csv.\nChange their table_iid from legacy vocab to vocab-schema.\nUpdate the dictionary’s table_iid vocab reference to registry-table-iid.csv.\nEnsure registry-table-iid.csv contains exactly the canonical registry artifact identifiers:\n\npackages\nparties\nparty-roles\ndictionary\nvocab-schema\n\nNormalize null_values / null_tokens to the chosen canonical field name null_tokens.",
+    "crumbs": [
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Template readiness and remaining implementation work</span>"
+    ]
+  },
+  {
+    "objectID": "16-template-readiness.html#identifier-naming-cleanup-still-needed",
+    "href": "16-template-readiness.html#identifier-naming-cleanup-still-needed",
+    "title": "17  Template readiness and remaining implementation work",
+    "section": "17.4 Identifier naming cleanup still needed",
+    "text": "17.4 Identifier naming cleanup still needed\nThe prototype files contain naming drift. The intended v1 convention is:\nds_id_uuidv4        -&gt; dataset_id\nrelease_id_uuidv7   -&gt; release_id\nparty_uuidv4        -&gt; party_id\nparty_slug/party_id -&gt; party_iid where the value is a readable IID\neml_packageId       -&gt; eml_package_id\nBefore v1:\n\nUpdate physical CSV headers.\nUpdate dictionary rows.\nUpdate scripts.\nMigrate existing registry records deliberately.\nUpdate validation.\nDocument the schema migration.",
+    "crumbs": [
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Template readiness and remaining implementation work</span>"
+    ]
+  },
+  {
+    "objectID": "16-template-readiness.html#parties-updates-still-needed",
+    "href": "16-template-readiness.html#parties-updates-still-needed",
+    "title": "17  Template readiness and remaining implementation work",
+    "section": "17.5 Parties updates still needed",
+    "text": "17.5 Parties updates still needed\n\nRemove role_default from registry--parties.csv.\nRemove role_default from the dictionary.\nConfirm person/organization requiredness rules.\nConfirm privacy guidance for email fields.",
+    "crumbs": [
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Template readiness and remaining implementation work</span>"
+    ]
+  },
+  {
+    "objectID": "16-template-readiness.html#party-role-redesign-still-needed",
+    "href": "16-template-readiness.html#party-role-redesign-still-needed",
+    "title": "17  Template readiness and remaining implementation work",
+    "section": "17.6 Party-role redesign still needed",
+    "text": "17.6 Party-role redesign still needed\nReplace the legacy role table with the target schema:\nrole_assignment_id\ndataset_id\nrelease_id\nparty_id\nrole_schema\nrole_code\ncontribution_degree\nrole_basis\nrole_source\nnotes\nThen:\n\nUpdate dictionary rows.\nMigrate any existing role rows.\nAdd UUID minting for role_assignment_id.\nUpdate validator foreign-key checks.\nImplement dataset-level vs. release-level role semantics.\nDecide and create role-basis.csv if adopted.",
+    "crumbs": [
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Template readiness and remaining implementation work</span>"
+    ]
+  },
+  {
+    "objectID": "16-template-readiness.html#credit-integration-still-needed",
+    "href": "16-template-readiness.html#credit-integration-still-needed",
+    "title": "17  Template readiness and remaining implementation work",
+    "section": "17.7 CRediT integration still needed",
+    "text": "17.7 CRediT integration still needed\n\nAdd credit-roles.csv to vocab/.\nAdd credit-contribution-degree.csv to vocab/.\nEnsure role-schema.csv contains credit.\nLink the role schema to the correct role vocabulary in validation/configuration.\nValidate role_code conditionally.\nValidate degree only when appropriate.\nPreserve canonical CRediT labels/definitions and source URLs.\nConfirm whether the registry will support DataCite and EML role vocabularies immediately or later.",
+    "crumbs": [
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Template readiness and remaining implementation work</span>"
+    ]
+  },
+  {
+    "objectID": "16-template-readiness.html#file-naming-cleanup",
+    "href": "16-template-readiness.html#file-naming-cleanup",
+    "title": "17  Template readiness and remaining implementation work",
+    "section": "17.8 File naming cleanup",
+    "text": "17.8 File naming cleanup\nThe final convention should be applied consistently.\nRecommended:\nregistry/\n    registry--packages.csv\n    registry--parties.csv\n    registry--party-roles.csv\n    registry--dictionary.csv\n    registry--vocab-schema.csv\n\nvocab/\n    registry-table-iid.csv\n    content-domains.csv\n    release-status.csv\n    role-schema.csv\n    credit-roles.csv\n    credit-contribution-degree.csv\n\nRemove legacy vocab-- filename prefixes if that is the final decision.\nUpdate every vocab_ref in the dictionary accordingly.\nUpdate scripts that assume old filenames.",
+    "crumbs": [
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Template readiness and remaining implementation work</span>"
+    ]
+  },
+  {
+    "objectID": "16-template-readiness.html#script-updates",
+    "href": "16-template-readiness.html#script-updates",
+    "title": "17  Template readiness and remaining implementation work",
+    "section": "17.9 Script updates",
+    "text": "17.9 Script updates\n\nRemove old numbered-directory assumptions.\nUpdate path-resolution code to the final tree.\nUpdate mint_ids.py field names.\nUpdate validate_registry.py for the final headers.\nAdd validation for all vocab files against registry--vocab-schema.csv.\nAdd conditional role-vocabulary validation.\nEnsure manifest paths are emitted project-relative rather than absolute.\nAdd manifest verification mode if the lightweight template script does not yet have it.",
+    "crumbs": [
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Template readiness and remaining implementation work</span>"
+    ]
+  },
+  {
+    "objectID": "16-template-readiness.html#documentation-synchronization",
+    "href": "16-template-readiness.html#documentation-synchronization",
+    "title": "17  Template readiness and remaining implementation work",
+    "section": "17.10 Documentation synchronization",
+    "text": "17.10 Documentation synchronization\nOnce the CSVs are migrated:\n\nCompare every documentation field table against the actual dictionary.\nRun a documentation link check.\nRender the Quarto book.\nTag the registry template version used by the documentation.",
+    "crumbs": [
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Template readiness and remaining implementation work</span>"
+    ]
+  },
+  {
+    "objectID": "16-template-readiness.html#definition-of-ready-for-lab-use",
+    "href": "16-template-readiness.html#definition-of-ready-for-lab-use",
+    "title": "17  Template readiness and remaining implementation work",
+    "section": "17.11 Definition of “ready for lab use”",
+    "text": "17.11 Definition of “ready for lab use”\nThe template is ready for broader lab adoption when:\n\nthe five registry artifacts exist with final headers;\nthe dictionary defines every one of those headers;\nall core vocabularies conform to registry--vocab-schema.csv;\nCRediT roles are wired into party-role validation;\nthe generic validator passes on a clean template;\nat least one real dataset has been registered end to end;\nanother lab member can complete a registration using the documentation without relying on undocumented oral instructions.",
+    "crumbs": [
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Template readiness and remaining implementation work</span>"
+    ]
+  }
+]

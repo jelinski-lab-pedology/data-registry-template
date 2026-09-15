@@ -1,0 +1,65 @@
+project:
+  type: book
+  # change output-dir to "docs" to publish to gh pages
+  output-dir: ../docs
+
+book:
+  title: "Jelinski Pedology Group Data Registry Handbook"
+  author: "Nic Jelinski"
+  date: "14SEP2026"
+  cover-image: "open-science-badge.png"
+  number: "0.1"
+  search: true
+  #navbar: 
+    #right: 
+      #- icon: cc-circle
+      #- href: https://creativecommons.org/licenses/by/4.0/
+      #- aria-label: Creative Commons
+  
+  chapters:
+    - index.md
+    - 01-overview.md
+    - 02-design-principles.md
+    - 03-repository-architecture.md
+    - 04-packages.md
+    - 05-parties.md
+    - 06-party-roles.md
+    - 07-dictionary.md
+    - 08-vocabularies.md
+    - 09-identifiers-releases-manifests.md
+    - 10-registering-a-dataset.md
+    - 11-llm-assisted-registration.md
+    - 12-validation-review.md
+    - 13-governance-versioning.md
+    - 14-scripts-automation.md
+    - 15-worked-example.md
+    - 16-template-readiness.md
+	
+    # - part: "Examples"
+      # chapters:
+        # - examples/examples--index.md
+    # - further-opportunities.qmd
+    # - references.qmd
+
+bibliography: references.bib
+
+format:
+  html:
+    theme: cosmo
+    toc: false
+    number-depth: 2
+    number-sections: true
+  pdf:
+    documentclass: scrreprt
+    include-in-header:
+      text: |
+        \usepackage{array}
+        \usepackage{ragged2e}
+        \setlength{\tabcolsep}{5pt}
+        \renewcommand{\arraystretch}{1.15}
+    
+execute:
+  echo: false
+
+editor: visual
+
