@@ -58,7 +58,6 @@ parties,org_name,Organization name,7,conditional,string,free_text,,,blank|nap,Na
 parties,email,Email,8,no,string,free_text,,,blank|nap|unk,Contact email when known and appropriate to record.,
 parties,orcid,ORCID,9,no,string,pattern,^https://orcid\.org/[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{3}[0-9X]$,,blank|nap|unk,Full ORCID URL; person parties only.,
 parties,organization,Affiliation,10,no,string,free_text,,,blank|nap|unk,Organizational affiliation for a person party.,
-parties,role_default,Default role,11,no,string,free_text,,,blank|nap|unk,Informal typical role; release-specific roles belong in party-roles.,
 parties,notes,Notes,12,no,string,free_text,,,blank|nap|unk,Curator notes.,
 party-roles,ds_iid,Dataset IID,1,yes,string,vocab,,registry--packages,none,Dataset to which the contribution applies.,
 party-roles,release_slug,Release slug,2,conditional,string,vocab,,registry--packages,blank,Specific release; blank means dataset-level role across releases.,
