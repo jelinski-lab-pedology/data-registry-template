@@ -1,0 +1,4 @@
+concept_iid,term_code,pref_label,alt_labels,definition,broader_id,status,created,modified,scope_note,related_ids,exact_match_ids,close_match_ids,replaced_by,source,note
+role-schema--credit,credit,CRediT,,Contributor Roles Taxonomy.,,active,2026-09-14,2026-09-14,Contributor-role scheme from which a party-role assertion draws its role term.,,,,,https://credit.niso.org/,
+role-schema--datacite,datacite,DataCite,,DataCite contributor types.,,active,2026-09-14,2026-09-14,Contributor-role scheme from which a party-role assertion draws its role term.,,,,,https://schema.datacite.org/,
+role-schema--eml,eml,EML,,Ecological Metadata Language responsibility roles.,,active,2026-09-14,2026-09-14,Contributor-role scheme from which a party-role assertion draws its role term.,,,,,https://eml.ecoinformatics.org/,

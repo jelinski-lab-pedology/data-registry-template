@@ -1,0 +1,6 @@
+concept_iid,term_code,pref_label,alt_labels,definition,broader_id,status,created,modified,scope_note,related_ids,exact_match_ids,close_match_ids,replaced_by,source,note
+table-iid--packages,packages,Packages,,Dataset/release inventory.,,active,2026-09-14,2026-09-14,Canonical artifact/table identifiers used by the registry dictionary.,,,,,Jelinski Lab Data Registry local standard,
+table-iid--dictionary,dictionary,Dictionary,,Field-level registry specification.,,active,2026-09-14,2026-09-14,Canonical artifact/table identifiers used by the registry dictionary.,,,,,Jelinski Lab Data Registry local standard,
+table-iid--parties,parties,Parties,,People and organizations.,,active,2026-09-14,2026-09-14,Canonical artifact/table identifiers used by the registry dictionary.,,,,,Jelinski Lab Data Registry local standard,
+table-iid--party-roles,party-roles,Party roles,,Dataset/release-specific contributions.,,active,2026-09-14,2026-09-14,Canonical artifact/table identifiers used by the registry dictionary.,,,,,Jelinski Lab Data Registry local standard,
+table-iid--vocab,vocab,Vocabulary,,Controlled vocabulary table using the standardized registry vocabulary schema.,,active,2026-09-14,2026-09-14,Canonical artifact/table identifiers used by the registry dictionary.,,,,,Jelinski Lab Data Registry local standard,

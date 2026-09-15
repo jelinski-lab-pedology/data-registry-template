@@ -1,0 +1,11 @@
+[project]
+name = "PROJECT NAME"
+prefix = "project-prefix"
+registry_standard = "jelinski-lab-registry"
+registry_standard_version = "0.1.0"
+
+[paths]
+registry = "registry"
+vocab = "vocab"
+glossary = "glossary"
+data = "data"
